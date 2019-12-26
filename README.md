@@ -8,10 +8,12 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
 1. Event
     * Integer id PK
     * String name
-    * Date startDate
-    * Date endDate
+    * OffsetDateTime startDate
+    * OffsetDateTime endDate
     * String description
     * Integer address_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 2. Participant
     * Integer id PK
@@ -20,12 +22,16 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * Integer phoneNumber
     * Integer address_id FK
     * Integer user_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 3. User
     * Integer id PK
     * String login
     * String password
     * String email
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 4. Organizer
     * Integer id PK
@@ -33,10 +39,14 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * Integer phoneNumber
     * Integer address_id FK
     * Integer user_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 5. Star
     * Integer id PK
     * String name
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 6. Address
     * Integer id PK
@@ -44,15 +54,21 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * String city
     * String street
     * String number
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 7. DanceType
     * Integer id PK
     * String name
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
 
 8. Event_DanceType
     * Integer id PK
     * Integer event_id FK
     * Integer danceType_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 ##Użyte technologie
 1. Java
