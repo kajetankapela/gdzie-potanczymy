@@ -1,4 +1,9 @@
 package com.gdziepotanczymy.repository;
 
-public interface StarRepository {
+import com.gdziepotanczymy.model.Star;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StarRepository extends JpaRepository<Star, Long> {
 }

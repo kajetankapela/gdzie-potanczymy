@@ -1,4 +1,9 @@
 package com.gdziepotanczymy.repository;
 
-public interface EventStarRepository {
+import com.gdziepotanczymy.model.EventStar;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EventStarRepository extends JpaRepository<EventStar, Long> {
 }
