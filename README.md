@@ -40,7 +40,6 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     
 6. Address
     * Integer id PK
-    * String province
     * String postalCode
     * String city
     * String street
