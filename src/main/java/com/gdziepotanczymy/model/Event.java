@@ -17,12 +17,12 @@ import java.time.OffsetDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String name;
     private OffsetDateTime startDate;
     private OffsetDateTime endDate;
     private String description;
-    private Integer addressId;
+    private Long addressId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 public class DanceType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String name;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

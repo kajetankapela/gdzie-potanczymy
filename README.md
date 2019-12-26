@@ -6,27 +6,27 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
 
 ##Opis klas
 1. Event
-    * Integer id PK
+    * Long id PK
     * String name
     * OffsetDateTime startDate
     * OffsetDateTime endDate
     * String description
-    * Integer address_id FK
+    * Long address_id FK
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     
 2. Participant
-    * Integer id PK
+    * Long id PK
     * String name
     * String surname
-    * Integer phoneNumber
-    * Integer address_id FK
-    * Integer user_id FK
+    * String phoneNumber
+    * Long address_id FK
+    * Long user_id FK
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     
 3. User
-    * Integer id PK
+    * Long id PK
     * String login
     * String password
     * String email
@@ -34,22 +34,23 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * OffsetDateTime updatedAt
     
 4. Organizer
-    * Integer id PK
+    * Long id PK
     * String name
-    * Integer phoneNumber
-    * Integer address_id FK
-    * Integer user_id FK
+    * String phoneNumber
+    * Long address_id FK
+    * Long user_id FK
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     
 5. Star
-    * Integer id PK
+    * Long id PK
     * String name
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     
 6. Address
-    * Integer id PK
+    * Long id PK
+    * String country
     * String postalCode
     * String city
     * String street
@@ -58,15 +59,15 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * OffsetDateTime updatedAt
     
 7. DanceType
-    * Integer id PK
+    * Long id PK
     * String name
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
 
 8. Event_DanceType
-    * Integer id PK
-    * Integer event_id FK
-    * Integer danceType_id FK
+    * Long id PK
+    * Long event_id FK
+    * Long danceType_id FK
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     

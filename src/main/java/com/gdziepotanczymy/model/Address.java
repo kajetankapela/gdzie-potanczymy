@@ -17,7 +17,8 @@ import java.time.OffsetDateTime;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
+    private String country;
     private String postalCode;
     private String city;
     private String street;
