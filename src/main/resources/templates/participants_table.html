@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>All participants</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>surname</th>
+        <th>created at</th>
+        <th>updated at</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="participant : ${participants}">
+        <td th:text="${participant.id}"></td>
+        <td th:text="${participant.name}"></td>
+        <td th:text="${participant.surname}"></td>
+        <td th:text="${participant.createdAt}"></td>
+        <td th:text="${participant.updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

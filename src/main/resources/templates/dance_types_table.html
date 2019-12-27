@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>All dance types</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>created at</th>
+        <th>updated at</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="danceType : ${danceTypes}">
+        <td th:text="${danceType.id}"></td>
+        <td th:text="${danceType.name}"></td>
+        <td th:text="${danceType.createdAt}"></td>
+        <td th:text="${danceType.updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>All organizers</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>created at</th>
+        <th>updated at</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="organizer : ${organizers}">
+        <td th:text="${organizer.id}"></td>
+        <td th:text="${organizer.name}"></td>
+        <td th:text="${organizer.createdAt}"></td>
+        <td th:text="${organizer.updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>All events</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>start date</th>
+        <th>end date</th>
+        <th>description</th>
+        <th>address id</th>
+        <th>created at</th>
+        <th>updated at</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.startDate}"></td>
+        <td th:text="${event.endDate}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.addressId}"></td>
+        <td th:text="${event.createdAt}"></td>
+        <td th:text="${event.updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
