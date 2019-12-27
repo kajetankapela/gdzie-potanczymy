@@ -6,6 +6,7 @@ import com.gdziepotanczymy.service.mapper.EventStarDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ public class EventStarService {
     private final EventStarRepository repository;
     private final EventStarDtoMapper mapper;
 
+    @Transactional
     public List<EventStarDto> getAllEventStars() {
         return repository.findAll()
                 .stream()
