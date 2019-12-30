@@ -1,6 +1,6 @@
 package com.gdziepotanczymy.view;
 
-import com.gdziepotanczymy.service.AddressService;
+import com.gdziepotanczymy.controller.AddressController;
 import com.gdziepotanczymy.service.dto.AddressDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,11 +12,11 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class AddressViewController {
-    private final AddressService addressService;
+    private final AddressController addressController;
 
     @GetMapping("/all-addresses")
     public ModelAndView displayAddressesTable() {
-        List<AddressDto> addresses = addressService.getAllAddresses();
+        List<AddressDto> addresses = addressController.getAllAddresses();
 
         ModelAndView modelAndView = new ModelAndView("addresses_table");
         modelAndView.addObject("addresses", addresses);
