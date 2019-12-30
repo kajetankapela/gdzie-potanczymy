@@ -70,6 +70,27 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * Long danceType_id FK
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
+
+9. Event_Organizer
+    * Long id PK
+    * Long event_id FK
+    * Long organizer_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
+
+10. Event_Participant
+    * Long id PK
+    * Long event_id FK
+    * Long participant_id FK
+    * OffsetDateTime createdAt
+    * OffsetDatetime updatedAt
+    
+11. Event_Star
+    * Long id PK
+    * Long event_id FK
+    * Long star_id FK
+    * OffsetDateTime createdAt
+    * OffsetDateTime updatedAt
     
 ##Użyte technologie
 1. Java
@@ -80,3 +101,4 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
 6. Bootstrap
 7. HTML
 8. CSS
+9. Swagger
