@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 @Table(name = "participant")
 public class Participant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;

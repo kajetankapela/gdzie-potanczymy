@@ -1,13 +1,16 @@
 package com.gdziepotanczymy.service;
 
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.Event;
 import com.gdziepotanczymy.repository.EventRepository;
+import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,5 +33,21 @@ public class EventService {
         return repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(NotFound::new);
+    }
+
+    @Transactional
+    public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) {
+        Event event = Event.builder()
+                .name(createUpdateEventDto.getName())
+                .startDate(createUpdateEventDto.getStartDate())
+                .endDate(createUpdateEventDto.getEndDate())
+                .description(createUpdateEventDto.getDescription())
+                .addressId(createUpdateEventDto.getAddressId())
+                .createdAt(OffsetDateTime.now())
+                .build();
+
+        Event savedEvent = repository.save(event);
+
+        return mapper.toDto(savedEvent);
     }
 }

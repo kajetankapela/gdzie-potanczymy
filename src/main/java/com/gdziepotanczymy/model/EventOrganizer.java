@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 @Table(name = "event_organizer")
 public class EventOrganizer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;

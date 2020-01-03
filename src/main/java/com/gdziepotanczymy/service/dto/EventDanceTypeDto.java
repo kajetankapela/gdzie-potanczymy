@@ -17,6 +17,6 @@ public class EventDanceTypeDto {
     private Long id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Event event;
-    private DanceType danceType;
+    private Long eventId;
+    private Long danceTypeId;
 }

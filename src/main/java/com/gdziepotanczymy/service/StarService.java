@@ -1,13 +1,16 @@
 package com.gdziepotanczymy.service;
 
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.Star;
 import com.gdziepotanczymy.repository.StarRepository;
+import com.gdziepotanczymy.service.dto.CreateUpdateStarDto;
 import com.gdziepotanczymy.service.dto.StarDto;
 import com.gdziepotanczymy.service.mapper.StarDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,5 +33,17 @@ public class StarService {
         return repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(NotFound::new);
+    }
+
+    @Transactional
+    public StarDto createStar(CreateUpdateStarDto createUpdateStarDto) {
+        Star star = Star.builder()
+                .name(createUpdateStarDto.getName())
+                .createdAt(OffsetDateTime.now())
+                .build();
+
+        Star savedStar = repository.save(star);
+
+        return mapper.toDto(savedStar);
     }
 }

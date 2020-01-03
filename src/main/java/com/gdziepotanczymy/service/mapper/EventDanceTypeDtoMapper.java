@@ -12,8 +12,8 @@ public class EventDanceTypeDtoMapper {
     public EventDanceTypeDto toDto(EventDanceType eventDanceType) {
         return EventDanceTypeDto.builder()
                 .id(eventDanceType.getId())
-                .event(eventDanceType.getEvent())
-                .danceType(eventDanceType.getDanceType())
+                .eventId(eventDanceType.getEvent().getId())
+                .danceTypeId(eventDanceType.getDanceType().getId())
                 .createdAt(eventDanceType.getCreatedAt())
                 .updatedAt(eventDanceType.getUpdatedAt())
                 .build();

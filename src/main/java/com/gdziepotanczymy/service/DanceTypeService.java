@@ -1,13 +1,16 @@
 package com.gdziepotanczymy.service;
 
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.DanceType;
 import com.gdziepotanczymy.repository.DanceTypeRepository;
+import com.gdziepotanczymy.service.dto.CreateUpdateDanceTypeDto;
 import com.gdziepotanczymy.service.dto.DanceTypeDto;
 import com.gdziepotanczymy.service.mapper.DanceTypeDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,5 +33,17 @@ public class DanceTypeService {
         return repository.findById(id)
                 .map(mapper::toDto)
                 .orElseThrow(NotFound::new);
+    }
+
+    @Transactional
+    public DanceTypeDto createDanceType(CreateUpdateDanceTypeDto createUpdateDanceTypeDto) {
+        DanceType danceType = DanceType.builder()
+                .name(createUpdateDanceTypeDto.getName())
+                .createdAt(OffsetDateTime.now())
+                .build();
+
+        DanceType savedDanceType = repository.save(danceType);
+
+        return mapper.toDto(savedDanceType);
     }
 }

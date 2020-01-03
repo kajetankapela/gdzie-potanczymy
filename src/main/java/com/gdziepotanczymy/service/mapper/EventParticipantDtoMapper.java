@@ -12,8 +12,8 @@ public class EventParticipantDtoMapper {
     public EventParticipantDto toDto(EventParticipant eventParticipant) {
         return EventParticipantDto.builder()
                 .id(eventParticipant.getId())
-                .event(eventParticipant.getEvent())
-                .participant(eventParticipant.getParticipant())
+                .eventId(eventParticipant.getEvent().getId())
+                .participantId(eventParticipant.getParticipant().getId())
                 .createdAt(eventParticipant.getCreatedAt())
                 .updatedAt(eventParticipant.getUpdatedAt())
                 .build();

@@ -17,6 +17,6 @@ public class EventParticipantDto {
     private Long id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Event event;
-    private Participant participant;
+    private Long eventId;
+    private Long participantId;
 }

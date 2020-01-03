@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 @Table(name = "dance_type")
 public class DanceType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private OffsetDateTime createdAt;

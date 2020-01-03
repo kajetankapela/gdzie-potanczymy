@@ -17,6 +17,6 @@ public class EventStarDto {
     private Long id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Event event;
-    private Star star;
+    private Long eventId;
+    private Long starId;
 }

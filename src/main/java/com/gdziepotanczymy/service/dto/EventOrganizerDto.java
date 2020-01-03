@@ -17,6 +17,6 @@ public class EventOrganizerDto {
     private Long id;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-    private Event event;
-    private Organizer organizer;
+    private Long eventId;
+    private Long organizerId;
 }

@@ -12,8 +12,8 @@ public class EventStarDtoMapper {
     public EventStarDto toDto(EventStar eventStar) {
         return EventStarDto.builder()
                 .id(eventStar.getId())
-                .event(eventStar.getEvent())
-                .star(eventStar.getStar())
+                .eventId(eventStar.getEvent().getId())
+                .starId(eventStar.getStar().getId())
                 .createdAt(eventStar.getCreatedAt())
                 .updatedAt(eventStar.getUpdatedAt())
                 .build();
