@@ -1,11 +1,11 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.EventOrganizerService;
+import com.gdziepotanczymy.service.dto.CreateUpdateEventOrganizerDto;
 import com.gdziepotanczymy.service.dto.EventOrganizerDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +18,25 @@ public class EventOrganizerController {
     @GetMapping()
     public List<EventOrganizerDto> getAllEventOrganizers() {
         return eventOrganizerService.getAllEventOrganizers();
+    }
+
+    @GetMapping("/{id}")
+    public EventOrganizerDto getEventOrganizerById(@PathVariable Long id) throws NotFound {
+        return eventOrganizerService.getEventOrganizerById(id);
+    }
+
+    @PostMapping()
+    public EventOrganizerDto newEventOrganizer(@RequestBody CreateUpdateEventOrganizerDto createUpdateEventOrganizerDto) throws NotFound {
+        return eventOrganizerService.createEventOrganizer(createUpdateEventOrganizerDto);
+    }
+
+    @PutMapping("/{id}")
+    public EventOrganizerDto updateEventOrganizerById(@PathVariable Long id, @RequestBody CreateUpdateEventOrganizerDto createUpdateEventOrganizerDto) throws NotFound {
+        return eventOrganizerService.updateEventOrganizerById(id, createUpdateEventOrganizerDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public EventOrganizerDto deleteEventOrganizerById(@PathVariable Long id) throws NotFound {
+        return eventOrganizerService.deleteEventOrganizerById(id);
     }
 }

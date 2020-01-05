@@ -1,11 +1,11 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.AddressService;
 import com.gdziepotanczymy.service.dto.AddressDto;
+import com.gdziepotanczymy.service.dto.CreateUpdateAddressDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +18,25 @@ public class AddressController {
     @GetMapping()
     public List<AddressDto> getAllAddresses() {
         return addressService.getAllAddresses();
+    }
+
+    @GetMapping("/{id}")
+    public AddressDto getAddressById(@PathVariable Long id) throws NotFound {
+        return addressService.getAddressById(id);
+    }
+
+    @PostMapping()
+    public AddressDto newAddress(@RequestBody CreateUpdateAddressDto createUpdateAddressDto) {
+        return addressService.createAddress(createUpdateAddressDto);
+    }
+
+    @PutMapping("/{id}")
+    public AddressDto updateAddressById(@PathVariable Long id, @RequestBody CreateUpdateAddressDto createUpdateAddressDto) throws NotFound {
+        return addressService.updateAddressById(id, createUpdateAddressDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public AddressDto deleteAddressById(@PathVariable Long id) throws NotFound {
+        return addressService.deleteAddressById(id);
     }
 }
