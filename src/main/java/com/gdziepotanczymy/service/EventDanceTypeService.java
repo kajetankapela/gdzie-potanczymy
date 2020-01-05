@@ -55,4 +55,21 @@ public class EventDanceTypeService {
 
         return mapper.toDto(savedEventDanceType);
     }
+
+    @Transactional
+    public EventDanceTypeDto updateEventDanceTypeById(Long id, CreateUpdateEventDanceTypeDto createUpdateEventDanceTypeDto) throws NotFound {
+        EventDanceType existingEventDanceType = eventDanceTypeRepository.findById(id).orElseThrow(NotFound::new);
+
+        existingEventDanceType.setEvent(eventRepository
+                .findById(createUpdateEventDanceTypeDto.getEventId())
+                .orElseThrow(NotFound::new));
+        existingEventDanceType.setDanceType(danceTypeRepository
+                .findById(createUpdateEventDanceTypeDto.getDanceTypeId())
+                .orElseThrow(NotFound::new));
+        existingEventDanceType.setUpdatedAt(OffsetDateTime.now());
+
+        EventDanceType savedEventDanceType = eventDanceTypeRepository.save(existingEventDanceType);
+
+        return mapper.toDto(savedEventDanceType);
+    }
 }

@@ -55,4 +55,21 @@ public class EventStarService {
 
         return mapper.toDto(savedEventStar);
     }
+
+    @Transactional
+    public EventStarDto updateEventStarById(Long id, CreateUpdateEventStarDto createUpdateEventStarDto) throws NotFound {
+        EventStar existingEventStar = eventStarRepository.findById(id).orElseThrow(NotFound::new);
+
+        existingEventStar.setEvent(eventRepository
+                .findById(createUpdateEventStarDto.getEventId())
+                .orElseThrow(NotFound::new));
+        existingEventStar.setStar(starRepository
+                .findById(createUpdateEventStarDto.getStarId())
+                .orElseThrow(NotFound::new));
+        existingEventStar.setUpdatedAt(OffsetDateTime.now());
+
+        EventStar savedEventStar = eventStarRepository.save(existingEventStar);
+
+        return mapper.toDto(savedEventStar);
+    }
 }

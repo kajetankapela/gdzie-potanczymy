@@ -46,4 +46,16 @@ public class StarService {
 
         return mapper.toDto(savedStar);
     }
+
+    @Transactional
+    public StarDto updateStarById(Long id, CreateUpdateStarDto createUpdateStarDto) throws NotFound {
+        Star existingStar = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingStar.setName(createUpdateStarDto.getName());
+        existingStar.setUpdatedAt(OffsetDateTime.now());
+
+        Star savedStar = repository.save(existingStar);
+
+        return mapper.toDto(savedStar);
+    }
 }

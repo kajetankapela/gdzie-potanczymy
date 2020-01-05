@@ -50,4 +50,20 @@ public class EventService {
 
         return mapper.toDto(savedEvent);
     }
+
+    @Transactional
+    public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound {
+        Event existingEvent = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingEvent.setName(createUpdateEventDto.getName());
+        existingEvent.setStartDate(createUpdateEventDto.getStartDate());
+        existingEvent.setEndDate(createUpdateEventDto.getEndDate());
+        existingEvent.setDescription(createUpdateEventDto.getDescription());
+        existingEvent.setAddressId(createUpdateEventDto.getAddressId());
+        existingEvent.setUpdatedAt(OffsetDateTime.now());
+
+        Event savedEvent = repository.save(existingEvent);
+
+        return mapper.toDto(savedEvent);
+    }
 }

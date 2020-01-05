@@ -47,4 +47,17 @@ public class ParticipantService {
 
         return mapper.toDto(savedParticipant);
     }
+
+    @Transactional
+    public ParticipantDto updateParticipantById(Long id, CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound {
+        Participant existingParticipant = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingParticipant.setName(createUpdateParticipantDto.getName());
+        existingParticipant.setSurname(createUpdateParticipantDto.getSurname());
+        existingParticipant.setUpdatedAt(OffsetDateTime.now());
+
+        Participant savedParticipant = repository.save(existingParticipant);
+
+        return mapper.toDto(savedParticipant);
+    }
 }

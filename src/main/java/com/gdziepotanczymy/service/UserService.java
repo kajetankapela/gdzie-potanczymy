@@ -46,4 +46,16 @@ public class UserService {
 
         return mapper.toDto(savedUser);
     }
+
+    @Transactional
+    public UserDto updateUserById(Long id, CreateUpdateUserDto createUpdateUserDto) throws NotFound {
+        User existingUser = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingUser.setLogin(createUpdateUserDto.getLogin());
+        existingUser.setUpdatedAt(OffsetDateTime.now());
+
+        User savedUser = repository.save(existingUser);
+
+        return mapper.toDto(savedUser);
+    }
 }

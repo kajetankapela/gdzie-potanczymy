@@ -46,4 +46,16 @@ public class DanceTypeService {
 
         return mapper.toDto(savedDanceType);
     }
+
+    @Transactional
+    public DanceTypeDto updateDanceTypeById(Long id, CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws NotFound {
+        DanceType existingDanceType = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingDanceType.setName(createUpdateDanceTypeDto.getName());
+        existingDanceType.setUpdatedAt(OffsetDateTime.now());
+
+        DanceType savedDanceType = repository.save(existingDanceType);
+
+        return mapper.toDto(savedDanceType);
+    }
 }

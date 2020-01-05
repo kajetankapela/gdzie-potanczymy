@@ -50,4 +50,20 @@ public class AddressService {
 
         return mapper.toDto(savedAddress);
     }
+
+    @Transactional
+    public AddressDto updateAddressById(Long id, CreateUpdateAddressDto createUpdateAddressDto) throws NotFound {
+        Address existingAddress = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingAddress.setCountry(createUpdateAddressDto.getCountry());
+        existingAddress.setPostalCode(createUpdateAddressDto.getPostalCode());
+        existingAddress.setCity(createUpdateAddressDto.getCity());
+        existingAddress.setStreet(createUpdateAddressDto.getStreet());
+        existingAddress.setNumber(createUpdateAddressDto.getNumber());
+        existingAddress.setUpdatedAt(OffsetDateTime.now());
+
+        Address savedAddress = repository.save(existingAddress);
+
+        return mapper.toDto(savedAddress);
+    }
 }

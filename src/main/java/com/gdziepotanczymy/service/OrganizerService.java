@@ -46,4 +46,16 @@ public class OrganizerService {
 
         return mapper.toDto(savedOrganizer);
     }
+
+    @Transactional
+    public OrganizerDto updateOrganizerById(Long id, CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound {
+        Organizer existingOrganizer = repository.findById(id).orElseThrow(NotFound::new);
+
+        existingOrganizer.setName(createUpdateOrganizerDto.getName());
+        existingOrganizer.setUpdatedAt(OffsetDateTime.now());
+
+        Organizer savedOrganizer = repository.save(existingOrganizer);
+
+        return mapper.toDto(savedOrganizer);
+    }
 }

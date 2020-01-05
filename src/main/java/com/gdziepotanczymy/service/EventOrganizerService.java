@@ -55,4 +55,21 @@ public class EventOrganizerService {
 
         return mapper.toDto(savedEventOrganizer);
     }
+
+    @Transactional
+    public EventOrganizerDto updateEventOrganizerById(Long id, CreateUpdateEventOrganizerDto createUpdateEventOrganizerDto) throws NotFound {
+        EventOrganizer existingEventOrganizer = eventOrganizerRepository.findById(id).orElseThrow(NotFound::new);
+
+        existingEventOrganizer.setEvent(eventRepository
+                .findById(createUpdateEventOrganizerDto.getEventId())
+                .orElseThrow(NotFound::new));
+        existingEventOrganizer.setOrganizer(organizerRepository
+                .findById(createUpdateEventOrganizerDto.getOrganizerId())
+                .orElseThrow(NotFound::new));
+        existingEventOrganizer.setUpdatedAt(OffsetDateTime.now());
+
+        EventOrganizer savedEventOrganizer = eventOrganizerRepository.save(existingEventOrganizer);
+
+        return mapper.toDto(savedEventOrganizer);
+    }
 }
