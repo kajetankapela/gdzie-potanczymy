@@ -60,4 +60,13 @@ public class ParticipantService {
 
         return mapper.toDto(savedParticipant);
     }
+
+    @Transactional
+    public ParticipantDto deleteParticipantById(Long id) throws NotFound {
+        Participant existingParticipant = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingParticipant);
+
+        return mapper.toDto(existingParticipant);
+    }
 }

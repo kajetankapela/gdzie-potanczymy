@@ -58,4 +58,13 @@ public class DanceTypeService {
 
         return mapper.toDto(savedDanceType);
     }
+
+    @Transactional
+    public DanceTypeDto deleteDanceTypeById(Long id) throws NotFound {
+        DanceType existingDanceType = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingDanceType);
+
+        return mapper.toDto(existingDanceType);
+    }
 }

@@ -72,4 +72,13 @@ public class EventOrganizerService {
 
         return mapper.toDto(savedEventOrganizer);
     }
+
+    @Transactional
+    public EventOrganizerDto deleteEventOrganizerById(Long id) throws NotFound {
+        EventOrganizer existingEventOrganizer = eventOrganizerRepository.findById(id).orElseThrow(NotFound::new);
+
+        eventOrganizerRepository.delete(existingEventOrganizer);
+
+        return mapper.toDto(existingEventOrganizer);
+    }
 }

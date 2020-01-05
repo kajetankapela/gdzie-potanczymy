@@ -58,4 +58,13 @@ public class UserService {
 
         return mapper.toDto(savedUser);
     }
+
+    @Transactional
+    public UserDto deleteUserById(Long id) throws NotFound {
+        User existingUser = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingUser);
+
+        return mapper.toDto(existingUser);
+    }
 }

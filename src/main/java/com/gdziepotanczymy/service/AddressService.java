@@ -66,4 +66,13 @@ public class AddressService {
 
         return mapper.toDto(savedAddress);
     }
+
+    @Transactional
+    public AddressDto deleteAddressById(Long id) throws NotFound {
+        Address existingAddress = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingAddress);
+
+        return mapper.toDto(existingAddress);
+    }
 }

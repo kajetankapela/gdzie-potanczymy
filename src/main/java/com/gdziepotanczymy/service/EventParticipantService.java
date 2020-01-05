@@ -72,4 +72,13 @@ public class EventParticipantService {
 
         return mapper.toDto(savedEventParticipant);
     }
+
+    @Transactional
+    public EventParticipantDto deleteEventParticipantById(Long id) throws NotFound {
+        EventParticipant existingEventParticipant = eventParticipantRepository.findById(id).orElseThrow(NotFound::new);
+
+        eventParticipantRepository.delete(existingEventParticipant);
+
+        return mapper.toDto(existingEventParticipant);
+    }
 }

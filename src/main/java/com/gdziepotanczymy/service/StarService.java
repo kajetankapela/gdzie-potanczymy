@@ -58,4 +58,13 @@ public class StarService {
 
         return mapper.toDto(savedStar);
     }
+
+    @Transactional
+    public StarDto deleteStarById(Long id) throws NotFound {
+        Star existingStar = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingStar);
+
+        return mapper.toDto(existingStar);
+    }
 }

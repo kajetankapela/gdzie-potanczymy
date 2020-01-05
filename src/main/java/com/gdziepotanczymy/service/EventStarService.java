@@ -72,4 +72,13 @@ public class EventStarService {
 
         return mapper.toDto(savedEventStar);
     }
+
+    @Transactional
+    public EventStarDto deleteEventStarById(Long id) throws NotFound {
+        EventStar existingEventStar = eventStarRepository.findById(id).orElseThrow(NotFound::new);
+
+        eventStarRepository.delete(existingEventStar);
+
+        return mapper.toDto(existingEventStar);
+    }
 }

@@ -58,4 +58,13 @@ public class OrganizerService {
 
         return mapper.toDto(savedOrganizer);
     }
+
+    @Transactional
+    public OrganizerDto deleteOrganizerById(Long id) throws NotFound {
+        Organizer existingOrganizer = repository.findById(id).orElseThrow(NotFound::new);
+
+        repository.delete(existingOrganizer);
+
+        return mapper.toDto(existingOrganizer);
+    }
 }
