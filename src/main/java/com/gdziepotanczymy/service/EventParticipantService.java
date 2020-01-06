@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.EventParticipant;
 import com.gdziepotanczymy.repository.EventParticipantRepository;
@@ -40,7 +41,11 @@ public class EventParticipantService {
     }
 
     @Transactional
-    public EventParticipantDto createEventParticipant(CreateUpdateEventParticipantDto createUpdateEventParticipantDto) throws NotFound {
+    public EventParticipantDto createEventParticipant(CreateUpdateEventParticipantDto createUpdateEventParticipantDto) throws NotFound, BadRequest {
+        if (createUpdateEventParticipantDto.getEventId() == null || createUpdateEventParticipantDto.getParticipantId() == null) {
+            throw new BadRequest();
+        }
+
         EventParticipant eventParticipant = EventParticipant.builder()
                 .event(eventRepository
                         .findById(createUpdateEventParticipantDto.getEventId())

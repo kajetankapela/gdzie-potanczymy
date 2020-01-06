@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.dto.CreateUpdateOrganizerDto;
@@ -26,12 +28,12 @@ public class OrganizerController {
     }
 
     @PostMapping()
-    public OrganizerDto newOrganizer(@RequestBody CreateUpdateOrganizerDto createUpdateOrganizerDto) {
+    public OrganizerDto newOrganizer(@RequestBody CreateUpdateOrganizerDto createUpdateOrganizerDto) throws AlreadyExists, BadRequest {
         return organizerService.createOrganizer(createUpdateOrganizerDto);
     }
 
     @PutMapping("/{id}")
-    public OrganizerDto updateOrganizerById(@PathVariable Long id, @RequestBody CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound {
+    public OrganizerDto updateOrganizerById(@PathVariable Long id, @RequestBody CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound, AlreadyExists, BadRequest {
         return organizerService.updateOrganizerById(id, createUpdateOrganizerDto);
     }
 

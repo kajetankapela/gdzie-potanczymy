@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.StarService;
 import com.gdziepotanczymy.service.dto.CreateUpdateStarDto;
@@ -26,12 +28,12 @@ public class StarController {
     }
 
     @PostMapping()
-    public StarDto newStar(@RequestBody CreateUpdateStarDto createUpdateStarDto) {
+    public StarDto newStar(@RequestBody CreateUpdateStarDto createUpdateStarDto) throws AlreadyExists, BadRequest {
         return starService.createStar(createUpdateStarDto);
     }
 
     @PutMapping("/{id}")
-    public StarDto updateStarById(@PathVariable Long id, @RequestBody CreateUpdateStarDto createUpdateStarDto) throws NotFound {
+    public StarDto updateStarById(@PathVariable Long id, @RequestBody CreateUpdateStarDto createUpdateStarDto) throws NotFound, AlreadyExists, BadRequest {
         return starService.updateStarById(id, createUpdateStarDto);
     }
 

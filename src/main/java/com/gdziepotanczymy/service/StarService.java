@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Star;
 import com.gdziepotanczymy.repository.StarRepository;
@@ -36,7 +38,15 @@ public class StarService {
     }
 
     @Transactional
-    public StarDto createStar(CreateUpdateStarDto createUpdateStarDto) {
+    public StarDto createStar(CreateUpdateStarDto createUpdateStarDto) throws BadRequest, AlreadyExists {
+        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateStarDto.getName())) {
+            throw new AlreadyExists();
+        }
+
         Star star = Star.builder()
                 .name(createUpdateStarDto.getName())
                 .createdAt(OffsetDateTime.now())
@@ -48,7 +58,15 @@ public class StarService {
     }
 
     @Transactional
-    public StarDto updateStarById(Long id, CreateUpdateStarDto createUpdateStarDto) throws NotFound {
+    public StarDto updateStarById(Long id, CreateUpdateStarDto createUpdateStarDto) throws NotFound, BadRequest, AlreadyExists {
+        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateStarDto.getName())) {
+            throw new AlreadyExists();
+        }
+
         Star existingStar = repository.findById(id).orElseThrow(NotFound::new);
 
         existingStar.setName(createUpdateStarDto.getName());

@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.EventOrganizer;
 import com.gdziepotanczymy.repository.EventOrganizerRepository;
@@ -40,7 +41,11 @@ public class EventOrganizerService {
     }
 
     @Transactional
-    public EventOrganizerDto createEventOrganizer(CreateUpdateEventOrganizerDto createUpdateEventOrganizerDto) throws NotFound {
+    public EventOrganizerDto createEventOrganizer(CreateUpdateEventOrganizerDto createUpdateEventOrganizerDto) throws NotFound, BadRequest {
+        if (createUpdateEventOrganizerDto.getEventId() == null || createUpdateEventOrganizerDto.getOrganizerId() == null) {
+            throw new BadRequest();
+        }
+
         EventOrganizer eventOrganizer = EventOrganizer.builder()
                 .event(eventRepository
                         .findById(createUpdateEventOrganizerDto.getEventId())

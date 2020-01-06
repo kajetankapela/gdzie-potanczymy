@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.EventParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventParticipantDto;
@@ -26,7 +27,7 @@ public class EventParticipantController {
     }
 
     @PostMapping()
-    public EventParticipantDto newEventParticipant(@RequestBody CreateUpdateEventParticipantDto createUpdateEventParticipantDto) throws NotFound {
+    public EventParticipantDto newEventParticipant(@RequestBody CreateUpdateEventParticipantDto createUpdateEventParticipantDto) throws NotFound, BadRequest {
         return eventParticipantService.createEventParticipant(createUpdateEventParticipantDto);
     }
 

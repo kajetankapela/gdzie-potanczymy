@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.DanceTypeService;
 import com.gdziepotanczymy.service.dto.CreateUpdateDanceTypeDto;
@@ -26,12 +28,12 @@ public class DanceTypeController {
     }
 
     @PostMapping()
-    public DanceTypeDto newDanceType(@RequestBody CreateUpdateDanceTypeDto createUpdateDanceTypeDto) {
+    public DanceTypeDto newDanceType(@RequestBody CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws AlreadyExists, BadRequest {
         return danceTypeService.createDanceType(createUpdateDanceTypeDto);
     }
 
     @PutMapping("/{id}")
-    public DanceTypeDto updateDanceTypeById(@PathVariable Long id, @RequestBody CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws NotFound {
+    public DanceTypeDto updateDanceTypeById(@PathVariable Long id, @RequestBody CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws NotFound, AlreadyExists, BadRequest {
         return danceTypeService.updateDanceTypeById(id, createUpdateDanceTypeDto);
     }
 

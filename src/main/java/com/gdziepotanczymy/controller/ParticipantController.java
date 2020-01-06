@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.ParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
@@ -26,12 +27,12 @@ public class ParticipantController {
     }
 
     @PostMapping()
-    public ParticipantDto newParticipant(@RequestBody CreateUpdateParticipantDto createUpdateParticipantDto) {
+    public ParticipantDto newParticipant(@RequestBody CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
         return participantService.createParticipant(createUpdateParticipantDto);
     }
 
     @PutMapping("/{id}")
-    public ParticipantDto updateParticipantById(@PathVariable Long id, @RequestBody CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound {
+    public ParticipantDto updateParticipantById(@PathVariable Long id, @RequestBody CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound, BadRequest {
         return participantService.updateParticipantById(id, createUpdateParticipantDto);
     }
 

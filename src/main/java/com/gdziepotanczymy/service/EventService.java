@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Event;
 import com.gdziepotanczymy.repository.EventRepository;
@@ -36,7 +37,15 @@ public class EventService {
     }
 
     @Transactional
-    public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) {
+    public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
+                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
+                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
+                || createUpdateEventDto.getAddressId() == null
+        ) {
+            throw new BadRequest();
+        }
+
         Event event = Event.builder()
                 .name(createUpdateEventDto.getName())
                 .startDate(createUpdateEventDto.getStartDate())
@@ -52,7 +61,15 @@ public class EventService {
     }
 
     @Transactional
-    public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound {
+    public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
+        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
+                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
+                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
+                || createUpdateEventDto.getAddressId() == null
+        ) {
+            throw new BadRequest();
+        }
+
         Event existingEvent = repository.findById(id).orElseThrow(NotFound::new);
 
         existingEvent.setName(createUpdateEventDto.getName());

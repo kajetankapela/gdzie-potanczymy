@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Participant;
 import com.gdziepotanczymy.repository.ParticipantRepository;
@@ -36,7 +37,13 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) {
+    public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
+        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
+                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
+        ) {
+            throw new BadRequest();
+        }
+
         Participant participant = Participant.builder()
                 .name(createUpdateParticipantDto.getName())
                 .surname(createUpdateParticipantDto.getSurname())
@@ -49,7 +56,13 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantDto updateParticipantById(Long id, CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound {
+    public ParticipantDto updateParticipantById(Long id, CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound, BadRequest {
+        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
+                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
+        ) {
+            throw new BadRequest();
+        }
+
         Participant existingParticipant = repository.findById(id).orElseThrow(NotFound::new);
 
         existingParticipant.setName(createUpdateParticipantDto.getName());

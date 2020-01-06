@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.EventStarService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventStarDto;
@@ -26,7 +27,7 @@ public class EventStarController {
     }
 
     @PostMapping()
-    public EventStarDto newEventStar(@RequestBody CreateUpdateEventStarDto createUpdateEventStarDto) throws NotFound {
+    public EventStarDto newEventStar(@RequestBody CreateUpdateEventStarDto createUpdateEventStarDto) throws NotFound, BadRequest {
         return eventStarService.createEventStar(createUpdateEventStarDto);
     }
 

@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.AddressService;
 import com.gdziepotanczymy.service.dto.AddressDto;
@@ -26,12 +27,12 @@ public class AddressController {
     }
 
     @PostMapping()
-    public AddressDto newAddress(@RequestBody CreateUpdateAddressDto createUpdateAddressDto) {
+    public AddressDto newAddress(@RequestBody CreateUpdateAddressDto createUpdateAddressDto) throws BadRequest {
         return addressService.createAddress(createUpdateAddressDto);
     }
 
     @PutMapping("/{id}")
-    public AddressDto updateAddressById(@PathVariable Long id, @RequestBody CreateUpdateAddressDto createUpdateAddressDto) throws NotFound {
+    public AddressDto updateAddressById(@PathVariable Long id, @RequestBody CreateUpdateAddressDto createUpdateAddressDto) throws NotFound, BadRequest {
         return addressService.updateAddressById(id, createUpdateAddressDto);
     }
 

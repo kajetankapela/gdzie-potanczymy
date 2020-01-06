@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.User;
 import com.gdziepotanczymy.repository.UserRepository;
@@ -36,7 +38,15 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto createUser(CreateUpdateUserDto createUpdateUserDto) {
+    public UserDto createUser(CreateUpdateUserDto createUpdateUserDto) throws BadRequest, AlreadyExists {
+        if (createUpdateUserDto.getLogin() == null || createUpdateUserDto.getLogin().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByLogin(createUpdateUserDto.getLogin())) {
+            throw new AlreadyExists();
+        }
+
         User user = User.builder()
                 .login(createUpdateUserDto.getLogin())
                 .createdAt(OffsetDateTime.now())
@@ -48,7 +58,15 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto updateUserById(Long id, CreateUpdateUserDto createUpdateUserDto) throws NotFound {
+    public UserDto updateUserById(Long id, CreateUpdateUserDto createUpdateUserDto) throws NotFound, AlreadyExists, BadRequest {
+        if (createUpdateUserDto.getLogin() == null || createUpdateUserDto.getLogin().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByLogin(createUpdateUserDto.getLogin())) {
+            throw new AlreadyExists();
+        }
+
         User existingUser = repository.findById(id).orElseThrow(NotFound::new);
 
         existingUser.setLogin(createUpdateUserDto.getLogin());

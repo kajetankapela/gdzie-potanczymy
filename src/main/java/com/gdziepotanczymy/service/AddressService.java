@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Address;
 import com.gdziepotanczymy.repository.AddressRepository;
@@ -36,7 +37,15 @@ public class AddressService {
     }
 
     @Transactional
-    public AddressDto createAddress(CreateUpdateAddressDto createUpdateAddressDto) {
+    public AddressDto createAddress(CreateUpdateAddressDto createUpdateAddressDto) throws BadRequest {
+        if (createUpdateAddressDto.getCountry() == null || createUpdateAddressDto.getCountry().isEmpty()
+                || createUpdateAddressDto.getPostalCode() == null || createUpdateAddressDto.getPostalCode().isEmpty()
+                || createUpdateAddressDto.getCity() == null || createUpdateAddressDto.getCity().isEmpty()
+                || createUpdateAddressDto.getStreet() == null || createUpdateAddressDto.getStreet().isEmpty()
+                || createUpdateAddressDto.getNumber() == null || createUpdateAddressDto.getNumber().isEmpty()) {
+            throw new BadRequest();
+        }
+
         Address address = Address.builder()
                 .country(createUpdateAddressDto.getCountry())
                 .postalCode(createUpdateAddressDto.getPostalCode())
@@ -52,7 +61,15 @@ public class AddressService {
     }
 
     @Transactional
-    public AddressDto updateAddressById(Long id, CreateUpdateAddressDto createUpdateAddressDto) throws NotFound {
+    public AddressDto updateAddressById(Long id, CreateUpdateAddressDto createUpdateAddressDto) throws NotFound, BadRequest {
+        if (createUpdateAddressDto.getCountry() == null || createUpdateAddressDto.getCountry().isEmpty()
+                || createUpdateAddressDto.getPostalCode() == null || createUpdateAddressDto.getPostalCode().isEmpty()
+                || createUpdateAddressDto.getCity() == null || createUpdateAddressDto.getCity().isEmpty()
+                || createUpdateAddressDto.getStreet() == null || createUpdateAddressDto.getStreet().isEmpty()
+                || createUpdateAddressDto.getNumber() == null || createUpdateAddressDto.getNumber().isEmpty()) {
+            throw new BadRequest();
+        }
+
         Address existingAddress = repository.findById(id).orElseThrow(NotFound::new);
 
         existingAddress.setCountry(createUpdateAddressDto.getCountry());

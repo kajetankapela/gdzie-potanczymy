@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.UserService;
 import com.gdziepotanczymy.service.dto.CreateUpdateUserDto;
@@ -26,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping()
-    public UserDto newUser(@RequestBody CreateUpdateUserDto createUpdateUserDto) {
+    public UserDto newUser(@RequestBody CreateUpdateUserDto createUpdateUserDto) throws AlreadyExists, BadRequest {
         return userService.createUser(createUpdateUserDto);
     }
 
     @PutMapping("/{id}")
-    public UserDto updateUserById(@PathVariable Long id, @RequestBody CreateUpdateUserDto createUpdateUserDto) throws NotFound {
+    public UserDto updateUserById(@PathVariable Long id, @RequestBody CreateUpdateUserDto createUpdateUserDto) throws NotFound, BadRequest, AlreadyExists {
         return userService.updateUserById(id, createUpdateUserDto);
     }
 

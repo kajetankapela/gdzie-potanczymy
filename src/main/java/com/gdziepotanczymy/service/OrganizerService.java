@@ -1,5 +1,7 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.AlreadyExists;
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Organizer;
 import com.gdziepotanczymy.repository.OrganizerRepository;
@@ -36,7 +38,15 @@ public class OrganizerService {
     }
 
     @Transactional
-    public OrganizerDto createOrganizer(CreateUpdateOrganizerDto createUpdateOrganizerDto) {
+    public OrganizerDto createOrganizer(CreateUpdateOrganizerDto createUpdateOrganizerDto) throws BadRequest, AlreadyExists {
+        if (createUpdateOrganizerDto.getName() == null || createUpdateOrganizerDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateOrganizerDto.getName())) {
+            throw new AlreadyExists();
+        }
+
         Organizer organizer = Organizer.builder()
                 .name(createUpdateOrganizerDto.getName())
                 .createdAt(OffsetDateTime.now())
@@ -48,7 +58,15 @@ public class OrganizerService {
     }
 
     @Transactional
-    public OrganizerDto updateOrganizerById(Long id, CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound {
+    public OrganizerDto updateOrganizerById(Long id, CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound, BadRequest, AlreadyExists {
+        if (createUpdateOrganizerDto.getName() == null || createUpdateOrganizerDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateOrganizerDto.getName())) {
+            throw new AlreadyExists();
+        }
+
         Organizer existingOrganizer = repository.findById(id).orElseThrow(NotFound::new);
 
         existingOrganizer.setName(createUpdateOrganizerDto.getName());

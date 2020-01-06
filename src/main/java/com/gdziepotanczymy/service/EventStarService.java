@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.EventStar;
 import com.gdziepotanczymy.repository.EventRepository;
@@ -40,7 +41,11 @@ public class EventStarService {
     }
 
     @Transactional
-    public EventStarDto createEventStar(CreateUpdateEventStarDto createUpdateEventStarDto) throws NotFound {
+    public EventStarDto createEventStar(CreateUpdateEventStarDto createUpdateEventStarDto) throws NotFound, BadRequest {
+        if (createUpdateEventStarDto.getEventId() == null || createUpdateEventStarDto.getStarId() == null) {
+            throw new BadRequest();
+        }
+
         EventStar eventStar = EventStar.builder()
                 .event(eventRepository
                         .findById(createUpdateEventStarDto.getEventId())

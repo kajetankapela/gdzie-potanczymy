@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.controller;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.EventDanceTypeService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDanceTypeDto;
@@ -26,7 +27,7 @@ public class EventDanceTypeController {
     }
 
     @PostMapping()
-    public EventDanceTypeDto newEventDanceType(@RequestBody CreateUpdateEventDanceTypeDto createUpdateEventDanceTypeDto) throws NotFound {
+    public EventDanceTypeDto newEventDanceType(@RequestBody CreateUpdateEventDanceTypeDto createUpdateEventDanceTypeDto) throws NotFound, BadRequest {
         return eventDanceTypeService.createEventDanceType(createUpdateEventDanceTypeDto);
     }
 

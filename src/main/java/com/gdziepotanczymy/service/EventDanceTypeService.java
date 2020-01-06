@@ -1,5 +1,6 @@
 package com.gdziepotanczymy.service;
 
+import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.EventDanceType;
 import com.gdziepotanczymy.repository.DanceTypeRepository;
@@ -40,7 +41,11 @@ public class EventDanceTypeService {
     }
 
     @Transactional
-    public EventDanceTypeDto createEventDanceType(CreateUpdateEventDanceTypeDto createUpdateEventDanceTypeDto) throws NotFound {
+    public EventDanceTypeDto createEventDanceType(CreateUpdateEventDanceTypeDto createUpdateEventDanceTypeDto) throws NotFound, BadRequest {
+        if (createUpdateEventDanceTypeDto.getEventId() == null || createUpdateEventDanceTypeDto.getDanceTypeId() == null) {
+            throw new BadRequest();
+        }
+
         EventDanceType eventDanceType = EventDanceType.builder()
                 .event(eventRepository
                         .findById(createUpdateEventDanceTypeDto.getEventId())
