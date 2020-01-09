@@ -1,10 +1,13 @@
 #gdzie-potanczymy.pl
+
 >by Kajetan Kapela
 
 ##Opis serwisu
+
 Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udostępnić mogą organizatorzy, a zapisywać się na nie mogą zrejestrowani użytkownicy.
 
 ##Opis klas
+
 1. Event
     * Long id PK
     * String name

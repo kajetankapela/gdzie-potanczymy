@@ -23,6 +23,7 @@
         <td th:text="${star.name}"></td>
         <td th:text="${star.createdAt}"></td>
         <td th:text="${star.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-star/' + ${star.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

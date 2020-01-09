@@ -23,6 +23,7 @@
         <td th:text="${organizer.name}"></td>
         <td th:text="${organizer.createdAt}"></td>
         <td th:text="${organizer.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-organizer/' + ${organizer.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

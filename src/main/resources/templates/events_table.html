@@ -31,6 +31,7 @@
         <td th:text="${event.addressId}"></td>
         <td th:text="${event.createdAt}"></td>
         <td th:text="${event.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-event/' + ${event.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

@@ -25,6 +25,7 @@
         <td th:text="${participant.surname}"></td>
         <td th:text="${participant.createdAt}"></td>
         <td th:text="${participant.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-participant/' + ${participant.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

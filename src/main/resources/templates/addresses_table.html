@@ -31,6 +31,7 @@
         <td th:text="${address.number}"></td>
         <td th:text="${address.createdAt}"></td>
         <td th:text="${address.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-address/' + ${address.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

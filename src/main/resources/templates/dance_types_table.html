@@ -23,6 +23,7 @@
         <td th:text="${danceType.name}"></td>
         <td th:text="${danceType.createdAt}"></td>
         <td th:text="${danceType.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-dance-type/' + ${danceType.id}">delete</a></td>
     </tr>
     </tbody>
 </table>

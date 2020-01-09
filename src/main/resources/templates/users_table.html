@@ -23,6 +23,7 @@
         <td th:text="${user.login}"></td>
         <td th:text="${user.createdAt}"></td>
         <td th:text="${user.updatedAt}"></td>
+        <td><a style="color: red;" th:href="'/delete-user/' + ${user.id}">delete</a></td>
     </tr>
     </tbody>
 </table>
