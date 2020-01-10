@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<h1>New event - dance type</h1>
+<form method="post" th:action="@{/new-event-dance-type}" th:object="${createUpdateEventDanceTypeDto}">
+    Event:
+    <select th:field="*{eventId}">
+        <option th:each="event : ${events}" th:text="${event.name}" th:value="${event.id}"></option>
+    </select>
+    Dance type:
+    <select th:field="*{danceTypeId}">
+        <option th:each="danceType : ${danceTypes}" th:text="${danceType.name}" th:value="${danceType.id}"></option>
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<h1>New participant</h1>
+<form method="post" th:action="@{/new-participant}" th:object="${createUpdateParticipantDto}">
+    Name:
+    <input th:field="*{name}" type="text">
+    Surname:
+    <input th:field="*{surname}" type="text">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<h1>New event - participant</h1>
+<form method="post" th:action="@{/new-event-participant}" th:object="${createUpdateEventParticipantDto}">
+    Event:
+    <select th:field="*{eventId}">
+        <option th:each="event : ${events}" th:text="${event.name}" th:value="${event.id}"></option>
+    </select>
+    Participant:
+    <select th:field="*{participantId}">
+        <option th:each="participant : ${participants}" th:text="${participant.name}" th:value="${participant.id}"></option>
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
