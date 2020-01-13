@@ -38,13 +38,7 @@ public class EventService {
 
     @Transactional
     public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
-        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
-                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
-                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
-                || createUpdateEventDto.getAddressId() == null
-        ) {
-            throw new BadRequest();
-        }
+        isEventOk(createUpdateEventDto);
 
         Event event = Event.builder()
                 .name(createUpdateEventDto.getName())
@@ -62,13 +56,7 @@ public class EventService {
 
     @Transactional
     public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
-        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
-                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
-                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
-                || createUpdateEventDto.getAddressId() == null
-        ) {
-            throw new BadRequest();
-        }
+        isEventOk(createUpdateEventDto);
 
         Event existingEvent = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -91,5 +79,15 @@ public class EventService {
         repository.delete(existingEvent);
 
         return mapper.toDto(existingEvent);
+    }
+
+    private void isEventOk(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
+                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
+                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
+                || createUpdateEventDto.getAddressId() == null
+        ) {
+            throw new BadRequest();
+        }
     }
 }

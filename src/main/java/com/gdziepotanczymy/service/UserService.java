@@ -39,13 +39,7 @@ public class UserService {
 
     @Transactional
     public UserDto createUser(CreateUpdateUserDto createUpdateUserDto) throws BadRequest, AlreadyExists {
-        if (createUpdateUserDto.getLogin() == null || createUpdateUserDto.getLogin().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByLogin(createUpdateUserDto.getLogin())) {
-            throw new AlreadyExists();
-        }
+        isUserOk(createUpdateUserDto);
 
         User user = User.builder()
                 .login(createUpdateUserDto.getLogin())
@@ -59,13 +53,7 @@ public class UserService {
 
     @Transactional
     public UserDto updateUserById(Long id, CreateUpdateUserDto createUpdateUserDto) throws NotFound, AlreadyExists, BadRequest {
-        if (createUpdateUserDto.getLogin() == null || createUpdateUserDto.getLogin().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByLogin(createUpdateUserDto.getLogin())) {
-            throw new AlreadyExists();
-        }
+        isUserOk(createUpdateUserDto);
 
         User existingUser = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -84,5 +72,15 @@ public class UserService {
         repository.delete(existingUser);
 
         return mapper.toDto(existingUser);
+    }
+
+    private void isUserOk(CreateUpdateUserDto createUpdateUserDto) throws BadRequest, AlreadyExists {
+        if (createUpdateUserDto.getLogin() == null || createUpdateUserDto.getLogin().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByLogin(createUpdateUserDto.getLogin())) {
+            throw new AlreadyExists();
+        }
     }
 }

@@ -1,12 +1,12 @@
-#gdzie-potanczymy.pl
+## gdzie-potanczymy.pl
 
 >by Kajetan Kapela
 
-##Opis serwisu
+## Opis serwisu
 
 Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udostępnić mogą organizatorzy, a zapisywać się na nie mogą zrejestrowani użytkownicy.
 
-##Opis klas
+## Opis klas
 
 1. Event
     * Long id PK
@@ -95,7 +95,7 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
     
-##Użyte technologie
+## Użyte technologie
 1. Java
 2. Spring
 3. Maven

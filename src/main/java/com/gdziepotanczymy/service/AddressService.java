@@ -38,13 +38,7 @@ public class AddressService {
 
     @Transactional
     public AddressDto createAddress(CreateUpdateAddressDto createUpdateAddressDto) throws BadRequest {
-        if (createUpdateAddressDto.getCountry() == null || createUpdateAddressDto.getCountry().isEmpty()
-                || createUpdateAddressDto.getPostalCode() == null || createUpdateAddressDto.getPostalCode().isEmpty()
-                || createUpdateAddressDto.getCity() == null || createUpdateAddressDto.getCity().isEmpty()
-                || createUpdateAddressDto.getStreet() == null || createUpdateAddressDto.getStreet().isEmpty()
-                || createUpdateAddressDto.getNumber() == null || createUpdateAddressDto.getNumber().isEmpty()) {
-            throw new BadRequest();
-        }
+        isAddressOk(createUpdateAddressDto);
 
         Address address = Address.builder()
                 .country(createUpdateAddressDto.getCountry())
@@ -62,13 +56,7 @@ public class AddressService {
 
     @Transactional
     public AddressDto updateAddressById(Long id, CreateUpdateAddressDto createUpdateAddressDto) throws NotFound, BadRequest {
-        if (createUpdateAddressDto.getCountry() == null || createUpdateAddressDto.getCountry().isEmpty()
-                || createUpdateAddressDto.getPostalCode() == null || createUpdateAddressDto.getPostalCode().isEmpty()
-                || createUpdateAddressDto.getCity() == null || createUpdateAddressDto.getCity().isEmpty()
-                || createUpdateAddressDto.getStreet() == null || createUpdateAddressDto.getStreet().isEmpty()
-                || createUpdateAddressDto.getNumber() == null || createUpdateAddressDto.getNumber().isEmpty()) {
-            throw new BadRequest();
-        }
+        isAddressOk(createUpdateAddressDto);
 
         Address existingAddress = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -91,5 +79,15 @@ public class AddressService {
         repository.delete(existingAddress);
 
         return mapper.toDto(existingAddress);
+    }
+
+    private void isAddressOk(CreateUpdateAddressDto createUpdateAddressDto) throws BadRequest {
+        if (createUpdateAddressDto.getCountry() == null || createUpdateAddressDto.getCountry().isEmpty()
+                || createUpdateAddressDto.getPostalCode() == null || createUpdateAddressDto.getPostalCode().isEmpty()
+                || createUpdateAddressDto.getCity() == null || createUpdateAddressDto.getCity().isEmpty()
+                || createUpdateAddressDto.getStreet() == null || createUpdateAddressDto.getStreet().isEmpty()
+                || createUpdateAddressDto.getNumber() == null || createUpdateAddressDto.getNumber().isEmpty()) {
+            throw new BadRequest();
+        }
     }
 }

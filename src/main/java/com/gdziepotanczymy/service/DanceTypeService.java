@@ -39,13 +39,7 @@ public class DanceTypeService {
 
     @Transactional
     public DanceTypeDto createDanceType(CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws BadRequest, AlreadyExists {
-        if (createUpdateDanceTypeDto.getName() == null || createUpdateDanceTypeDto.getName().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByName(createUpdateDanceTypeDto.getName())) {
-            throw new AlreadyExists();
-        }
+        isDanceTypeOk(createUpdateDanceTypeDto);
 
         DanceType danceType = DanceType.builder()
                 .name(createUpdateDanceTypeDto.getName())
@@ -59,13 +53,7 @@ public class DanceTypeService {
 
     @Transactional
     public DanceTypeDto updateDanceTypeById(Long id, CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws NotFound, BadRequest, AlreadyExists {
-        if (createUpdateDanceTypeDto.getName() == null || createUpdateDanceTypeDto.getName().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByName(createUpdateDanceTypeDto.getName())) {
-            throw new AlreadyExists();
-        }
+        isDanceTypeOk(createUpdateDanceTypeDto);
 
         DanceType existingDanceType = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -84,5 +72,15 @@ public class DanceTypeService {
         repository.delete(existingDanceType);
 
         return mapper.toDto(existingDanceType);
+    }
+
+    private void isDanceTypeOk(CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws BadRequest, AlreadyExists {
+        if (createUpdateDanceTypeDto.getName() == null || createUpdateDanceTypeDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateDanceTypeDto.getName())) {
+            throw new AlreadyExists();
+        }
     }
 }

@@ -38,11 +38,7 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
-        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
-                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
-        ) {
-            throw new BadRequest();
-        }
+        isParticipantOk(createUpdateParticipantDto);
 
         Participant participant = Participant.builder()
                 .name(createUpdateParticipantDto.getName())
@@ -57,11 +53,7 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantDto updateParticipantById(Long id, CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound, BadRequest {
-        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
-                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
-        ) {
-            throw new BadRequest();
-        }
+        isParticipantOk(createUpdateParticipantDto);
 
         Participant existingParticipant = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -81,5 +73,13 @@ public class ParticipantService {
         repository.delete(existingParticipant);
 
         return mapper.toDto(existingParticipant);
+    }
+
+    private void isParticipantOk(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
+        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
+                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
+        ) {
+            throw new BadRequest();
+        }
     }
 }

@@ -39,13 +39,7 @@ public class StarService {
 
     @Transactional
     public StarDto createStar(CreateUpdateStarDto createUpdateStarDto) throws BadRequest, AlreadyExists {
-        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByName(createUpdateStarDto.getName())) {
-            throw new AlreadyExists();
-        }
+        isStarOk(createUpdateStarDto);
 
         Star star = Star.builder()
                 .name(createUpdateStarDto.getName())
@@ -59,13 +53,7 @@ public class StarService {
 
     @Transactional
     public StarDto updateStarById(Long id, CreateUpdateStarDto createUpdateStarDto) throws NotFound, BadRequest, AlreadyExists {
-        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByName(createUpdateStarDto.getName())) {
-            throw new AlreadyExists();
-        }
+        isStarOk(createUpdateStarDto);
 
         Star existingStar = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -84,5 +72,15 @@ public class StarService {
         repository.delete(existingStar);
 
         return mapper.toDto(existingStar);
+    }
+
+    private void isStarOk(CreateUpdateStarDto createUpdateStarDto) throws BadRequest, AlreadyExists {
+        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
+            throw new BadRequest();
+        }
+
+        if (repository.existsByName(createUpdateStarDto.getName())) {
+            throw new AlreadyExists();
+        }
     }
 }
