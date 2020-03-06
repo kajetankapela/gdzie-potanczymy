@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DanceTypeRepository extends JpaRepository<DanceType, Long> {
-    boolean existsByName(String name);
 }

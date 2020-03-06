@@ -1,9 +1,0 @@
-package com.gdziepotanczymy.repository;
-
-import com.gdziepotanczymy.model.EventDanceType;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface EventDanceTypeRepository extends JpaRepository<EventDanceType, Long> {
-}
