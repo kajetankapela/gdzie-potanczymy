@@ -1,32 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Site made with Mobirise Website Builder v4.12.2, https://mobirise.com -->
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
+    <link href="assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
+    <meta content="Website Maker Description" name="description">
+
+    <title>Eventy</title>
+    <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="assets/tether/tether.min.css" rel="stylesheet">
+    <link href="assets/dropdown/css/style.css" rel="stylesheet">
+    <link href="assets/datatables/data-tables.bootstrap4.min.css" rel="stylesheet">
+    <link href="assets/theme/css/style.css" rel="stylesheet">
+    <link as="style" href="assets/mobirise/css/mbr-additional.css" rel="preload">
+    <link href="assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
+
+
 </head>
 <body>
-<h1>All organizers</h1>
+<section class="menu cid-rSaOsOMKqH" id="menu1-m" once="menu">
 
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>created at</th>
-        <th>updated at</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="organizer : ${organizers}">
-        <td th:text="${organizer.id}"></td>
-        <td th:text="${organizer.name}"></td>
-        <td th:text="${organizer.createdAt}"></td>
-        <td th:text="${organizer.updatedAt}"></td>
-        <td><a style="color: red;" th:href="'/delete-organizer/' + ${organizer.id}">delete</a></td>
-    </tr>
-    </tbody>
-</table>
-<a href="/new-organizer">New organizer</a>
+
+    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler navbar-toggler-right" data-target="#navbarSupportedContent" data-toggle="collapse"
+                type="button">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="menu-logo">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="index.html">
+                         <img alt="Mobirise" src="assets/images/logo2.png" style="height: 3.8rem;">
+                    </a>
+                </span>
+                <span class="navbar-caption-wrap">
+                    <a class="navbar-caption text-white display-4" href="index.html">
+                        GDZIE POTAŃCZYMY
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-events">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-dance-types">
+                        Dance_Types
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-organizers">
+                        Organizers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-participants">
+                        Participants
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-stars">
+                        Stars
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</section>
+
+<section class="engine"><a href="https://mobirise.info/n">simple web templates</a></section>
+<section class="section-table cid-rSaOViXxOV mbr-parallax-background" id="table1-n">
+
+
+    <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(255, 255, 255);">
+    </div>
+    <div class="container container-table">
+        <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+            ORGANIZERS</h2>
+
+        <div class="table-wrapper">
+            <div class="container">
+                <div class="row search">
+                    <div class="col-md-14"></div>
+                    <div class="col-md-14">
+                        <div class="dataTables_filter">
+                            <label class="searchInfo mbr-fonts-style display-7">Wyszukaj:</label>
+                            <input class="form-control input-sm" disabled="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container scroll">
+                <table cellspacing="0" class="table isSearch">
+                    <thead>
+                    <tr class="table-heads ">
+                        <th class="head-item mbr-fonts-style display-14">ID</th>
+                        <th class="head-item mbr-fonts-style display-14">NAME</th>
+                        <th class="head-item mbr-fonts-style display-14">LOGIN</th>
+                        <th class="head-item mbr-fonts-style display-14">EMAIL</th>
+                        <th class="head-item mbr-fonts-style display-14">PHONE_NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-14">COUNTRY</th>
+                        <th class="head-item mbr-fonts-style display-14">POSTAL_CODE</th>
+                        <th class="head-item mbr-fonts-style display-14">CITY</th>
+                        <th class="head-item mbr-fonts-style display-14">STREET</th>
+                        <th class="head-item mbr-fonts-style display-14">NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-14">CREATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-14">UPDATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-14">UPDATE</th>
+                        <th class="head-item mbr-fonts-style display-14">DELETE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="organizer : ${organizers}">
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.id}"></td>
+                        <!--        <td th:text="${organizer.getId}"></td>-->
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.name}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.login}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.email}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.phoneNumber}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.country}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.postalCode}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.city}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.street}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.number}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.createdAt}"></td>
+                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.updatedAt}"></td>
+                        <td class="body-item mbr-fonts-style display-14"><a th:href="'/update-organizer/' + ${organizer.id}">update</a></td>
+                        <td class="body-item mbr-fonts-style display-14"><a style="color: red;" th:href="'/delete-organizer/' + ${organizer.id}">delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <a href="/new-organizer">New organizer</a>
+                <br>
+                <a href="index.html">Back</a>
+            </div>
+            <div class="container table-info-container">
+                <div class="row info">
+                    <div class="col-md-14">
+                        <div class="dataTables_info mbr-fonts-style display-7">
+                            <span class="infoBefore">Prezentacja</span>
+                            <span class="inactive infoRows"></span>
+                            <span class="infoAfter">danych</span>
+                            <span class="infoFilteredBefore">odfiltrowanych</span>
+                            <span class="inactive infoRows"></span>
+                            <span class="infoFilteredAfter"> z całości</span>
+                        </div>
+                    </div>
+                    <div class="col-md-14"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="assets/web/assets/jquery/jquery.min.js"></script>
+<script src="assets/popper/popper.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/tether/tether.min.js"></script>
+<script src="assets/dropdown/js/nav-dropdown.js"></script>
+<script src="assets/dropdown/js/navbar-dropdown.js"></script>
+<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+<script src="assets/datatables/jquery.data-tables.min.js"></script>
+<script src="assets/datatables/data-tables.bootstrap4.min.js"></script>
+<script src="assets/parallax/jarallax.min.js"></script>
+<script src="assets/smoothscroll/smooth-scroll.js"></script>
+<script src="assets/theme/js/script.js"></script>
+
+
 </body>
 </html>

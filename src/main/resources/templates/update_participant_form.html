@@ -7,19 +7,19 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
-    <link href="assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
+    <link href="/assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
     <meta content="Web Page Generator Description" name="description">
 
-    <title>Create Participant Form</title>
-    <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="assets/tether/tether.min.css" rel="stylesheet">
-    <link href="assets/dropdown/css/style.css" rel="stylesheet">
-    <link href="assets/theme/css/style.css" rel="stylesheet">
-    <link as="style" href="assets/mobirise/css/mbr-additional.css" rel="preload">
-    <link href="assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
+    <title>Update Participant Form</title>
+    <link href="/assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/assets/tether/tether.min.css" rel="stylesheet">
+    <link href="/assets/dropdown/css/style.css" rel="stylesheet">
+    <link href="/assets/theme/css/style.css" rel="stylesheet">
+    <link as="style" href="/assets/mobirise/css/mbr-additional.css" rel="preload">
+    <link href="/assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -44,7 +44,7 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.html">
-                         <img alt="Mobirise" src="assets/images/logo2.png" style="height: 3.8rem;">
+                         <img alt="Mobirise" src="/assets/images/logo2.png" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
@@ -96,7 +96,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="title col-12 col-lg-8">
-                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">CREATE PARTICIPANT</h2>
+                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">UPDATE PARTICIPANT</h2>
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8">
                 <!---Formbuilder Form--->
-                <form class="mbr-form form-with-styler" method="POST" th:action="@{/new-participant}"
+                <form class="mbr-form form-with-styler" method="POST" th:action="@{/update-participant/{id}(id=${existingParticipant.id})}"
                       th:object="${createUpdateParticipantDto}">
 
                     <div class="dragArea row">
@@ -113,16 +113,18 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="name-form1-l">
                                 Name
                             </label>
-                            <input class="form-control display-7" id="name-form1-l" name="name" required="required"
-                                   th:field="*{name}" type="text">
+                            <input class="form-control display-7" id="name-form1-l"
+                                   name="name" required="required" th:field="*{name}"
+                                   th:placeholder="${existingParticipant.name}" type="text">
                         </div>
 
                         <div class="col-md-4  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="name-form2-l">
                                 Surname
                             </label>
-                            <input class="form-control display-7" id="name-form2-l" name="name" required="required"
-                                   th:field="*{surname}" type="text">
+                            <input class="form-control display-7" id="name-form2-l"
+                                   name="name" required="required" th:field="*{surname}"
+                                   th:placeholder="${existingParticipant.surname}" type="text">
                         </div>
 
                         <div class="col-md-4  form-group" data-for="name">
@@ -140,8 +142,9 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="name-form3-l">
                                 Login
                             </label>
-                            <input class="form-control display-7" id="name-form3-l" name="name" required="required"
-                                   th:field="*{login}" type="text">
+                            <input class="form-control display-7" id="name-form3-l"
+                                   name="name" required="required" th:field="*{login}"
+                                   th:placeholder="${existingParticipant.login}" type="text">
                         </div>
 
                         <div class="col-md-4  form-group" data-for="name">
@@ -156,16 +159,18 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="email-form1-j">
                                 Email
                             </label>
-                            <input class="form-control display-7" id="email-form1-j" name="email" required="required"
-                                   th:field="*{email}" type="email">
+                            <input class="form-control display-7" id="email-form1-j"
+                                   name="email" required="required" th:field="*{email}"
+                                   th:placeholder="${existingParticipant.email}" type="email">
                         </div>
 
                         <div class="col-md-4  form-group" data-for="phone">
                             <label class="form-control-label mbr-fonts-style display-7" for="phone-form1-j">
                                 Phone_Number
                             </label>
-                            <input class="form-control display-7" id="phone-form1-j" name="phone"
-                                   th:field="*{phoneNumber}" type="tel">
+                            <input class="form-control display-7" id="phone-form1-j"
+                                   name="phone" th:field="*{phoneNumber}"
+                                   th:placeholder="${existingParticipant.phoneNumber}" type="tel">
                         </div>
 
                         <div class="col-md-12 form-group">Address:</div>
@@ -174,48 +179,53 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form1-l">
                                 Country
                             </label>
-                            <input class="form-control display-7" id="address-form1-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateAddressDto.country}" type="text">
+                            <input class="form-control display-7"
+                                   id="address-form1-l" name="name" required="required"
+                                   th:field="*{createUpdateAddressDto.country}"
+                                   th:placeholder="${existingParticipant.addressDto?.country}" type="text">
                         </div>
 
                         <div class="col-md-6  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form2-l">
                                 Postal_Code
                             </label>
-                            <input class="form-control display-7" id="address-form2-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateAddressDto.postalCode}" type="text">
+                            <input class="form-control display-7"
+                                   id="address-form2-l" name="name" required="required"
+                                   th:field="*{createUpdateAddressDto.postalCode}"
+                                   th:placeholder="${existingParticipant.addressDto?.postalCode}" type="text">
                         </div>
 
                         <div class="col-md-5  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form3-l">
                                 City
                             </label>
-                            <input class="form-control display-7" id="address-form3-l" name="name" required="required"
-                                   th:field="*{createUpdateAddressDto.city}" type="text">
+                            <input class="form-control display-7"
+                                   id="address-form3-l" name="name" required="required" th:field="*{createUpdateAddressDto.city}"
+                                   th:placeholder="${existingParticipant.addressDto?.city}" type="text">
                         </div>
 
                         <div class="col-md-5  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form4-l">
                                 Street
                             </label>
-                            <input class="form-control display-7" id="address-form4-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateAddressDto.street}" type="text">
+                            <input class="form-control display-7"
+                                   id="address-form4-l" name="name" required="required"
+                                   th:field="*{createUpdateAddressDto.street}"
+                                   th:placeholder="${existingParticipant.addressDto?.street}" type="text">
                         </div>
 
                         <div class="col-md-2  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form5-l">
                                 Number
                             </label>
-                            <input class="form-control display-7" id="address-form5-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateAddressDto.number}" type="text">
+                            <input class="form-control display-7"
+                                   id="address-form5-l" name="name" required="required"
+                                   th:field="*{createUpdateAddressDto.number}"
+                                   th:placeholder="${existingParticipant.addressDto?.number}" type="text">
                         </div>
 
                         <div class="col-md-12 input-group-btn align-center">
-                            <button class="btn btn-primary btn-form display-4" type="submit">Create!</button>
+                            <button class="btn btn-primary btn-form display-4" type="submit">Update!</button>
                         </div>
                     </div>
                 </form><!---Formbuilder Form--->
@@ -225,17 +235,17 @@
 </section>
 
 
-<script src="assets/web/assets/jquery/jquery.min.js"></script>
-<script src="assets/popper/popper.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/smoothscroll/smooth-scroll.js"></script>
-<script src="assets/tether/tether.min.js"></script>
-<script src="assets/dropdown/js/nav-dropdown.js"></script>
-<script src="assets/dropdown/js/navbar-dropdown.js"></script>
-<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-<script src="assets/parallax/jarallax.min.js"></script>
-<script src="assets/theme/js/script.js"></script>
-<script src="assets/formoid/formoid.min.js"></script>
+<script src="/assets/web/assets/jquery/jquery.min.js"></script>
+<script src="/assets/popper/popper.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/smoothscroll/smooth-scroll.js"></script>
+<script src="/assets/tether/tether.min.js"></script>
+<script src="/assets/dropdown/js/nav-dropdown.js"></script>
+<script src="/assets/dropdown/js/navbar-dropdown.js"></script>
+<script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
+<script src="/assets/parallax/jarallax.min.js"></script>
+<script src="/assets/theme/js/script.js"></script>
+<script src="/assets/formoid/formoid.min.js"></script>
 
 
 </body>

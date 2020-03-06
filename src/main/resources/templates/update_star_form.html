@@ -7,19 +7,19 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
-    <link href="assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
+    <link href="/assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
     <meta content="Web Page Generator Description" name="description">
 
-    <title>Create Dance_Type Form</title>
-    <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
-    <link href="assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="assets/tether/tether.min.css" rel="stylesheet">
-    <link href="assets/dropdown/css/style.css" rel="stylesheet">
-    <link href="assets/theme/css/style.css" rel="stylesheet">
-    <link as="style" href="assets/mobirise/css/mbr-additional.css" rel="preload">
-    <link href="assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
+    <title>Update Star Form</title>
+    <link href="/assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/assets/tether/tether.min.css" rel="stylesheet">
+    <link href="/assets/dropdown/css/style.css" rel="stylesheet">
+    <link href="/assets/theme/css/style.css" rel="stylesheet">
+    <link as="style" href="/assets/mobirise/css/mbr-additional.css" rel="preload">
+    <link href="/assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -44,7 +44,7 @@
             <div class="navbar-brand">
                 <span class="navbar-logo">
                     <a href="index.html">
-                         <img alt="Mobirise" src="assets/images/logo2.png" style="height: 3.8rem;">
+                         <img alt="Mobirise" src="/assets/images/logo2.png" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
@@ -96,7 +96,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="title col-12 col-lg-8">
-                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">CREATE DANCE_TYPE</h2>
+                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">UPDATE STAR</h2>
             </div>
         </div>
     </div>
@@ -104,33 +104,45 @@
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8">
                 <!---Formbuilder Form--->
-                <form class="mbr-form form-with-styler" method="POST" th:action="@{/new-dance-type}"
-                      th:object="${createUpdateDanceTypeDto}" >
+                <form class="mbr-form form-with-styler" method="POST" th:action="@{/update-star/{id}(id=${existingStar.id})}"
+                      th:object="${createUpdateStarDto}" >
 
                     <div class="dragArea row">
                         <div class="col-md-4  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="name-form1-l">
                                 Name
                             </label>
-                            <input class="form-control display-7" id="name-form1-l" name="name" required="required"
-                                   th:field="*{name}" type="text">
+                            <input class="form-control display-7" id="name-form1-l"
+                                   name="name" required="required" th:field="*{name}"
+                                   th:placeholder="${existingStar.name}" type="text">
                         </div>
+                        <div class="col-md-4  form-group" data-for="name">
+                            <label class="form-control-label mbr-fonts-style display-7" for="name-form2-l">
+                                Country
+                            </label>
+                            <input class="form-control display-7" id="name-form2-l"
+                                   name="name" required="required" th:field="*{country}"
+                                   th:placeholder="${existingStar.country}" type="text">
+                        </div>
+
                         <div class="col-md-12 form-group" data-for="message">
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form1-l">
                                 Description
                             </label>
-                            <textarea class="form-control display-7" id="message-form1-l" name="message" th:field="*{description}"
+                            <textarea class="form-control display-7" id="message-form1-l"
+                                      name="message" th:field="*{description}" th:placeholder="${existingStar.description}"
                                       type="text"></textarea>
                         </div>
                         <div class="col-md-12 form-group" data-for="message">
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form2-l">
                                 Comments
                             </label>
-                            <textarea class="form-control display-7" id="message-form2-l" name="message" th:field="*{comments}"
+                            <textarea class="form-control display-7" id="message-form2-l"
+                                      name="message" th:field="*{comments}" th:placeholder="${existingStar.comments}"
                                       type="text"></textarea>
                         </div>
                         <div class="col-md-12 input-group-btn align-center">
-                            <button class="btn btn-primary btn-form display-4" type="submit">Create!</button>
+                            <button class="btn btn-primary btn-form display-4" type="submit">Update!</button>
                         </div>
                     </div>
                 </form><!---Formbuilder Form--->
@@ -140,17 +152,17 @@
 </section>
 
 
-<script src="assets/web/assets/jquery/jquery.min.js"></script>
-<script src="assets/popper/popper.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/smoothscroll/smooth-scroll.js"></script>
-<script src="assets/tether/tether.min.js"></script>
-<script src="assets/dropdown/js/nav-dropdown.js"></script>
-<script src="assets/dropdown/js/navbar-dropdown.js"></script>
-<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-<script src="assets/parallax/jarallax.min.js"></script>
-<script src="assets/theme/js/script.js"></script>
-<script src="assets/formoid/formoid.min.js"></script>
+<script src="/assets/web/assets/jquery/jquery.min.js"></script>
+<script src="/assets/popper/popper.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/smoothscroll/smooth-scroll.js"></script>
+<script src="/assets/tether/tether.min.js"></script>
+<script src="/assets/dropdown/js/nav-dropdown.js"></script>
+<script src="/assets/dropdown/js/navbar-dropdown.js"></script>
+<script src="/assets/touchswipe/jquery.touch-swipe.min.js"></script>
+<script src="/assets/parallax/jarallax.min.js"></script>
+<script src="/assets/theme/js/script.js"></script>
+<script src="/assets/formoid/formoid.min.js"></script>
 
 
 </body>
