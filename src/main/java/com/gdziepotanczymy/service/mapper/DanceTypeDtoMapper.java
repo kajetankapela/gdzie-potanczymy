@@ -13,6 +13,8 @@ public class DanceTypeDtoMapper {
         return DanceTypeDto.builder()
                 .id(danceType.getId())
                 .name(danceType.getName())
+                .description(danceType.getDescription())
+                .comments(danceType.getComments())
                 .createdAt(danceType.getCreatedAt())
                 .updatedAt(danceType.getUpdatedAt())
                 .build();

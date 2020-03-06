@@ -13,6 +13,9 @@ public class StarDtoMapper {
         return StarDto.builder()
                 .id(star.getId())
                 .name(star.getName())
+                .country(star.getCountry())
+                .description(star.getDescription())
+                .comments(star.getComments())
                 .createdAt(star.getCreatedAt())
                 .updatedAt(star.getUpdatedAt())
                 .build();
