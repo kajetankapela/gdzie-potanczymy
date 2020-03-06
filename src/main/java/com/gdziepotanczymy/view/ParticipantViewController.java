@@ -7,12 +7,14 @@ import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
 import com.gdziepotanczymy.service.dto.ParticipantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,7 @@ public class ParticipantViewController {
 
     @GetMapping("/delete-participant/{id}")
     public String deleteParticipant(@PathVariable Long id) throws NotFound {
-        ModelAndView modelAndView = new ModelAndView("all-participant");
+//        ModelAndView modelAndView = new ModelAndView("all-participant");
 
         participantService.deleteParticipantById(id);
 
@@ -52,6 +54,33 @@ public class ParticipantViewController {
     @PostMapping("/new-participant")
     public String createParticipant(@ModelAttribute CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
         participantService.createParticipant(createUpdateParticipantDto);
+
+        return "redirect:/all-participants";
+    }
+
+    @GetMapping("/update-participant/{id}")
+    public ModelAndView displayUpdateParticipantForm(@PathVariable Long id) throws NotFound {
+        CreateUpdateParticipantDto createUpdateParticipantDto = new CreateUpdateParticipantDto();
+        ParticipantDto existingParticipant = participantService.getParticipantById(id);
+
+        //todo update tylko w przypadku gdy pole w formularzu jest wypełnione
+
+        ModelAndView modelAndView = new ModelAndView("update_participant_form");
+        modelAndView.addObject("createUpdateParticipantDto", createUpdateParticipantDto);
+        modelAndView.addObject("existingParticipant", existingParticipant);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/update-participant/{id}")
+    public String updateParticipant(@PathVariable Long id,
+                                    @Valid @ModelAttribute CreateUpdateParticipantDto createUpdateParticipantDto,
+                                    BindingResult bindingResult,
+                                    @ModelAttribute(name = "existingParticipant") ParticipantDto existingParticipant) throws NotFound, BadRequest {
+        if (bindingResult.hasErrors()) {
+            return "update_participant_form";
+        }
+        participantService.updateParticipantById(id, createUpdateParticipantDto);
 
         return "redirect:/all-participants";
     }
