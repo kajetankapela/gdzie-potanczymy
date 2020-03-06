@@ -39,10 +39,13 @@ public class StarService {
 
     @Transactional
     public StarDto createStar(CreateUpdateStarDto createUpdateStarDto) throws BadRequest, AlreadyExists {
-        isStarOk(createUpdateStarDto);
+//        isStarOk(createStarDto);
 
         Star star = Star.builder()
                 .name(createUpdateStarDto.getName())
+                .description(createUpdateStarDto.getDescription())
+                .comments(createUpdateStarDto.getComments())
+                .country(createUpdateStarDto.getCountry())
                 .createdAt(OffsetDateTime.now())
                 .build();
 
@@ -53,11 +56,14 @@ public class StarService {
 
     @Transactional
     public StarDto updateStarById(Long id, CreateUpdateStarDto createUpdateStarDto) throws NotFound, BadRequest, AlreadyExists {
-        isStarOk(createUpdateStarDto);
+//        isStarOk(updateStarDto);
 
         Star existingStar = repository.findById(id).orElseThrow(NotFound::new);
 
         existingStar.setName(createUpdateStarDto.getName());
+        existingStar.setCountry(createUpdateStarDto.getCountry());
+        existingStar.setDescription(createUpdateStarDto.getDescription());
+        existingStar.setComments(createUpdateStarDto.getComments());
         existingStar.setUpdatedAt(OffsetDateTime.now());
 
         Star savedStar = repository.save(existingStar);
@@ -74,13 +80,13 @@ public class StarService {
         return mapper.toDto(existingStar);
     }
 
-    private void isStarOk(CreateUpdateStarDto createUpdateStarDto) throws BadRequest, AlreadyExists {
-        if (createUpdateStarDto.getName() == null || createUpdateStarDto.getName().isEmpty()) {
-            throw new BadRequest();
-        }
-
-        if (repository.existsByName(createUpdateStarDto.getName())) {
-            throw new AlreadyExists();
-        }
-    }
+//    private void isStarOk(UpdateStarDto updateStarDto) throws BadRequest, AlreadyExists {
+//        if (updateStarDto.getName() == null || updateStarDto.getName().isEmpty()) {
+//            throw new BadRequest();
+//        }
+//
+//        if (repository.existsByName(updateStarDto.getName())) {
+//            throw new AlreadyExists();
+//        }
+//    }
 }

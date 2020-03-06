@@ -2,16 +2,21 @@ package com.gdziepotanczymy.service;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.Address;
 import com.gdziepotanczymy.model.Event;
+import com.gdziepotanczymy.model.NumberOfSeats;
 import com.gdziepotanczymy.repository.EventRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
+//import com.gdziepotanczymy.service.mapper.AddressModelMapper;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
+import com.gdziepotanczymy.service.mapper.NumberOfSeatsModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,44 +24,78 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EventService {
     private final EventRepository repository;
-    private final EventDtoMapper mapper;
+    private final EventDtoMapper eventDtoMapper;
+//    private final AddressModelMapper addressModelMapper;
+//    private final NumberOfSeatsModelMapper numberOfSeatsModelMapper;
 
     @Transactional
     public List<EventDto> getAllEvents() {
         return repository.findAll()
                 .stream()
-                .map(mapper::toDto)
+                .map(eventDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public EventDto getEventById(Long id) throws NotFound {
         return repository.findById(id)
-                .map(mapper::toDto)
+                .map(eventDtoMapper::toDto)
                 .orElseThrow(NotFound::new);
     }
 
     @Transactional
     public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
-        isEventOk(createUpdateEventDto);
+//        isEventOk(createUpdateEventDto);
+
+        Address address = Address.builder()
+                .country(createUpdateEventDto.getCreateUpdateAddressDto().getCountry())
+                .postalCode(createUpdateEventDto.getCreateUpdateAddressDto().getPostalCode())
+                .city(createUpdateEventDto.getCreateUpdateAddressDto().getCity())
+                .street(createUpdateEventDto.getCreateUpdateAddressDto().getStreet())
+                .number(createUpdateEventDto.getCreateUpdateAddressDto().getNumber())
+                .build();
+
+        NumberOfSeats numberOfSeats = NumberOfSeats.builder()
+                .allSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
+                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getFreeSeats())
+                .unconfirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getUnconfirmedSeats())
+                .confirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getConfirmedSeats())
+                .build();
 
         Event event = Event.builder()
                 .name(createUpdateEventDto.getName())
                 .startDate(createUpdateEventDto.getStartDate())
                 .endDate(createUpdateEventDto.getEndDate())
                 .description(createUpdateEventDto.getDescription())
-                .addressId(createUpdateEventDto.getAddressId())
+                .comments(createUpdateEventDto.getComments())
                 .createdAt(OffsetDateTime.now())
+                .address(address)
+                .numberOfSeats(numberOfSeats)
                 .build();
 
         Event savedEvent = repository.save(event);
 
-        return mapper.toDto(savedEvent);
+        return eventDtoMapper.toDto(savedEvent);
     }
 
     @Transactional
     public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
-        isEventOk(createUpdateEventDto);
+//        isEventOk(createUpdateEventDto);
+
+        Address address = Address.builder()
+                .country(createUpdateEventDto.getCreateUpdateAddressDto().getCountry())
+                .postalCode(createUpdateEventDto.getCreateUpdateAddressDto().getPostalCode())
+                .city(createUpdateEventDto.getCreateUpdateAddressDto().getCity())
+                .street(createUpdateEventDto.getCreateUpdateAddressDto().getStreet())
+                .number(createUpdateEventDto.getCreateUpdateAddressDto().getNumber())
+                .build();
+
+        NumberOfSeats numberOfSeats = NumberOfSeats.builder()
+                .allSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
+                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getFreeSeats())
+                .unconfirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getUnconfirmedSeats())
+                .confirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getConfirmedSeats())
+                .build();
 
         Event existingEvent = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -64,12 +103,14 @@ public class EventService {
         existingEvent.setStartDate(createUpdateEventDto.getStartDate());
         existingEvent.setEndDate(createUpdateEventDto.getEndDate());
         existingEvent.setDescription(createUpdateEventDto.getDescription());
-        existingEvent.setAddressId(createUpdateEventDto.getAddressId());
+        existingEvent.setComments(createUpdateEventDto.getComments());
+        existingEvent.setAddress(address);
+        existingEvent.setNumberOfSeats(numberOfSeats);
         existingEvent.setUpdatedAt(OffsetDateTime.now());
 
         Event savedEvent = repository.save(existingEvent);
 
-        return mapper.toDto(savedEvent);
+        return eventDtoMapper.toDto(savedEvent);
     }
 
     @Transactional
@@ -78,16 +119,16 @@ public class EventService {
 
         repository.delete(existingEvent);
 
-        return mapper.toDto(existingEvent);
+        return eventDtoMapper.toDto(existingEvent);
     }
 
-    private void isEventOk(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
-        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
-                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
-                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
-                || createUpdateEventDto.getAddressId() == null
-        ) {
-            throw new BadRequest();
-        }
-    }
+//    private void isEventOk(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+//        if (createUpdateEventDto.getName() == null || createUpdateEventDto.getName().isEmpty()
+//                || createUpdateEventDto.getStartDate() == null || createUpdateEventDto.getEndDate() == null
+//                || createUpdateEventDto.getDescription() == null || createUpdateEventDto.getDescription().isEmpty()
+//                || createUpdateEventDto.getAddressId() == null
+//        ) {
+//            throw new BadRequest();
+//        }
+//    }
 }
