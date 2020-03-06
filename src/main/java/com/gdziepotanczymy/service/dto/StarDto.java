@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,6 +16,12 @@ import java.time.OffsetDateTime;
 public class StarDto {
     private Long id;
     private String name;
+    private String country;
+    private String description;
+    private String comments;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+
+    @Builder.Default
+    private List<EventDto> events = new ArrayList<>();
 }

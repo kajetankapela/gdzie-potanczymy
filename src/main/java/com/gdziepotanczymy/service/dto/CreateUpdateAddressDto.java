@@ -1,18 +1,24 @@
 package com.gdziepotanczymy.service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.Embeddable;
+import javax.validation.constraints.Size;
 
 @Data
-@Builder
+@Embeddable
+//@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUpdateAddressDto {
-    private String country;
-    private String postalCode;
-    private String city;
-    private String street;
-    private String number;
+    @Size(min = 3)
+    protected String country;
+    protected String postalCode;
+    protected String city;
+    protected String street;
+    protected String number;
 }

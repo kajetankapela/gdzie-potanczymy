@@ -1,19 +1,26 @@
 package com.gdziepotanczymy.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Embedded;
 import java.time.OffsetDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class UserDto {
-    private Long id;
-    private String login;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
+//@AllArgsConstructor
+//@RequiredArgsConstructor
+public abstract class UserDto {
+    protected Long id;
+    protected String name;
+    protected String login;
+    protected String email;
+    protected String phoneNumber;
+    protected OffsetDateTime createdAt;
+    protected OffsetDateTime updatedAt;
+
+    @Embedded
+    protected AddressDto addressDto;
 }

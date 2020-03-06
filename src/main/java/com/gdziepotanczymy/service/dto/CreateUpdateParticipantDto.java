@@ -1,15 +1,18 @@
 package com.gdziepotanczymy.service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-@Data
-@Builder
+//@Builder
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUpdateParticipantDto {
-    private String name;
+@SuperBuilder
+public class CreateUpdateParticipantDto extends CreateUpdateUserDto {
     private String surname;
+    private String gender;
 }

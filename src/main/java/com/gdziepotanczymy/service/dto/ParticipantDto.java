@@ -1,20 +1,23 @@
 package com.gdziepotanczymy.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
-@Builder
+//@Builder
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipantDto {
-    private Long id;
-    private String name;
+@SuperBuilder
+public class ParticipantDto extends UserDto{
+//    private Long id;
     private String surname;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
+    private String gender;
+
+    @Builder.Default
+    private List<EventDto> events = new ArrayList<>();
+
 }

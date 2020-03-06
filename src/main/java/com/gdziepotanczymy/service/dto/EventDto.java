@@ -4,8 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Embedded;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,10 +19,28 @@ import java.time.OffsetDateTime;
 public class EventDto {
     private Long id;
     private String name;
-    private OffsetDateTime startDate;
-    private OffsetDateTime endDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime endDate;
     private String description;
-    private Long addressId;
+    private String comments;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+
+    @Embedded
+    private AddressDto address;
+    private NumberOfSeatsDto numberOfSeats;
+
+    @Builder.Default
+    private List<DanceTypeDto> danceTypes = new ArrayList<>();
+
+    @Builder.Default
+    private List<StarDto> stars = new ArrayList<>();
+
+    @Builder.Default
+    private List<ParticipantDto> participants = new ArrayList<>();
+
+    @Builder.Default
+    private OrganizerDto organizer = new OrganizerDto();
 }

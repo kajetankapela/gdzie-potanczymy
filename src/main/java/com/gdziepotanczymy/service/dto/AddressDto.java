@@ -1,23 +1,22 @@
 package com.gdziepotanczymy.service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.time.OffsetDateTime;
+import javax.persistence.Embeddable;
 
 @Data
-@Builder
+@Embeddable
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+//@MappedSuperclass
 public class AddressDto {
-    private Long id;
-    private String country;
-    private String postalCode;
-    private String city;
-    private String street;
-    private String number;
-    private OffsetDateTime createdAt;
-    private OffsetDateTime updatedAt;
+    protected String country;
+    protected String postalCode;
+    protected String city;
+    protected String street;
+    protected String number;
 }
