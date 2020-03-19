@@ -11,90 +11,70 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
 1. Event
     * Long id PK
     * String name
-    * OffsetDateTime startDate
-    * OffsetDateTime endDate
+    * LocalDateTime startDate
+    * LocalDateTime endDate
     * String description
-    * Long address_id FK
+    * String comments
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
+    * Address address
+    * NumberOfSeats numberOfSeats
+    * List<danceType> danceTypes
+    * List<Star> stars
+    * List<Participant> participants
+    * Organizer organizer
     
 2. Participant
-    * Long id PK
-    * String name
     * String surname
-    * String phoneNumber
-    * Long address_id FK
-    * Long user_id FK
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
+    * String gender
+    * List<Event> events
     
 3. User
     * Long id PK
+    * String name
     * String login
     * String password
     * String email
+    * String phoneNumber
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
+    * Address address
     
 4. Organizer
-    * Long id PK
-    * String name
-    * String phoneNumber
-    * Long address_id FK
-    * Long user_id FK
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
+    * List<Event> events
     
 5. Star
     * Long id PK
     * String name
+    * String country
+    * String description
+    * String comments
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
+    * List<Event> events
     
 6. Address
-    * Long id PK
     * String country
     * String postalCode
     * String city
     * String street
     * String number
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
     
 7. DanceType
     * Long id PK
     * String name
+    * String description
+    * String comments
     * OffsetDateTime createdAt
     * OffsetDateTime updatedAt
-
-8. Event_DanceType
-    * Long id PK
-    * Long event_id FK
-    * Long danceType_id FK
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
-
-9. Event_Organizer
-    * Long id PK
-    * Long event_id FK
-    * Long organizer_id FK
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
-
-10. Event_Participant
-    * Long id PK
-    * Long event_id FK
-    * Long participant_id FK
-    * OffsetDateTime createdAt
-    * OffsetDatetime updatedAt
+    * list<Event> events
     
-11. Event_Star
-    * Long id PK
-    * Long event_id FK
-    * Long star_id FK
-    * OffsetDateTime createdAt
-    * OffsetDateTime updatedAt
-    
+8. NumberOfSeats
+    * Integer allSeats
+    * Integer freeSeats
+    * Integer unconfirmedSeats
+    * Integer confirmedSeats     
+
 ## Użyte technologie
 1. Java
 2. Spring
