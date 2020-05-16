@@ -8,7 +8,6 @@ import com.gdziepotanczymy.model.Organizer;
 import com.gdziepotanczymy.repository.OrganizerRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateOrganizerDto;
 import com.gdziepotanczymy.service.dto.OrganizerDto;
-//import com.gdziepotanczymy.service.mapper.AddressModelMapper;
 import com.gdziepotanczymy.service.mapper.OrganizerDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,12 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @RequiredArgsConstructor
 public class OrganizerService {
     private final OrganizerRepository repository;
     private final OrganizerDtoMapper organizerDtoMapper;
-//    private final AddressModelMapper addressModelMapper;
 
     @Transactional
     public List<OrganizerDto> getAllOrganizers() {
@@ -42,7 +41,6 @@ public class OrganizerService {
 
     @Transactional
     public OrganizerDto createOrganizer(CreateUpdateOrganizerDto createUpdateOrganizerDto) throws BadRequest, AlreadyExists {
-//        isOrganizerOk(createUpdateOrganizerDto);
 
         Address address = Address.builder()
                 .country(createUpdateOrganizerDto.getCreateUpdateAddressDto().getCountry())
@@ -58,6 +56,7 @@ public class OrganizerService {
                 .password(createUpdateOrganizerDto.getPassword())
                 .email(createUpdateOrganizerDto.getEmail())
                 .phoneNumber(createUpdateOrganizerDto.getPhoneNumber())
+                .role("ORGANIZER")
                 .address(address)
                 .createdAt(OffsetDateTime.now())
                 .build();
@@ -69,7 +68,6 @@ public class OrganizerService {
 
     @Transactional
     public OrganizerDto updateOrganizerById(Long id, CreateUpdateOrganizerDto createUpdateOrganizerDto) throws NotFound, BadRequest, AlreadyExists {
-//        isOrganizerOk(createUpdateOrganizerDto);
 
         Organizer existingOrganizer = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -102,14 +100,4 @@ public class OrganizerService {
 
         return organizerDtoMapper.toDto(existingOrganizer);
     }
-
-//    private void isOrganizerOk(CreateUpdateOrganizerDto createUpdateOrganizerDto) throws BadRequest, AlreadyExists {
-//        if (createUpdateOrganizerDto.getName() == null || createUpdateOrganizerDto.getName().isEmpty()) {
-//            throw new BadRequest();
-//        }
-//
-//        if (repository.existsByName(createUpdateOrganizerDto.getName())) {
-//            throw new AlreadyExists();
-//        }
-//    }
 }

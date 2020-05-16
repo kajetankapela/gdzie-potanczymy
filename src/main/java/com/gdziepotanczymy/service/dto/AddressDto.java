@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-//@MappedSuperclass
 public class AddressDto {
     protected String country;
     protected String postalCode;

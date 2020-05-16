@@ -7,7 +7,6 @@ import com.gdziepotanczymy.model.Participant;
 import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
 import com.gdziepotanczymy.service.dto.ParticipantDto;
-//import com.gdziepotanczymy.service.mapper.AddressModelMapper;
 import com.gdziepotanczymy.service.mapper.ParticipantDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,12 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 @RequiredArgsConstructor
 public class ParticipantService {
     private final ParticipantRepository repository;
     private final ParticipantDtoMapper participantDtoMapper;
-//    private final AddressModelMapper addressModelMapper;
 
     @Transactional
     public List<ParticipantDto> getAllParticipants() {
@@ -41,7 +40,6 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
-//        isParticipantOk(createUpdateParticipantDto);
 
         Address address = Address.builder()
                 .country(createUpdateParticipantDto.getCreateUpdateAddressDto().getCountry())
@@ -59,6 +57,7 @@ public class ParticipantService {
                 .password(createUpdateParticipantDto.getPassword())
                 .email(createUpdateParticipantDto.getEmail())
                 .phoneNumber(createUpdateParticipantDto.getPhoneNumber())
+                .role("PARTICIPANT")
                 .address(address)
                 .createdAt(OffsetDateTime.now())
                 .build();
@@ -70,7 +69,6 @@ public class ParticipantService {
 
     @Transactional
     public ParticipantDto updateParticipantById(Long id, CreateUpdateParticipantDto createUpdateParticipantDto) throws NotFound, BadRequest {
-//        isParticipantOk(createUpdateParticipantDto);
 
         Participant existingParticipant = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -105,12 +103,4 @@ public class ParticipantService {
 
         return participantDtoMapper.toDto(existingParticipant);
     }
-
-//    private void isParticipantOk(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
-//        if (createUpdateParticipantDto.getName() == null || createUpdateParticipantDto.getName().isEmpty()
-//                || createUpdateParticipantDto.getSurname() == null || createUpdateParticipantDto.getSurname().isEmpty()
-//        ) {
-//            throw new BadRequest();
-//        }
-//    }
 }

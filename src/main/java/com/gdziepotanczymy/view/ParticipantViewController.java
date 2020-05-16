@@ -34,7 +34,6 @@ public class ParticipantViewController {
 
     @GetMapping("/delete-participant/{id}")
     public String deleteParticipant(@PathVariable Long id) throws NotFound {
-//        ModelAndView modelAndView = new ModelAndView("all-participant");
 
         participantService.deleteParticipantById(id);
 
@@ -55,7 +54,7 @@ public class ParticipantViewController {
     public String createParticipant(@ModelAttribute CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
         participantService.createParticipant(createUpdateParticipantDto);
 
-        return "redirect:/all-participants";
+        return "redirect:/";
     }
 
     @GetMapping("/update-participant/{id}")
@@ -63,7 +62,6 @@ public class ParticipantViewController {
         CreateUpdateParticipantDto createUpdateParticipantDto = new CreateUpdateParticipantDto();
         ParticipantDto existingParticipant = participantService.getParticipantById(id);
 
-        //todo update tylko w przypadku gdy pole w formularzu jest wypełnione
 
         ModelAndView modelAndView = new ModelAndView("update_participant_form");
         modelAndView.addObject("createUpdateParticipantDto", createUpdateParticipantDto);

@@ -28,7 +28,7 @@ Serwis informacyjny ukazujący najważniejsze wydarzenia taneczne, które udost�
     * String surname
     * String gender
     * List<Event> events
-    
+
 3. User
     * Long id PK
     * String name

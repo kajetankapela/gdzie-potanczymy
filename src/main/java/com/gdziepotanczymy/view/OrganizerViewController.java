@@ -3,7 +3,6 @@ package com.gdziepotanczymy.view;
 import com.gdziepotanczymy.controller.exception.AlreadyExists;
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
-import com.gdziepotanczymy.model.Organizer;
 import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.dto.CreateUpdateOrganizerDto;
 import com.gdziepotanczymy.service.dto.OrganizerDto;
@@ -36,7 +35,6 @@ public class OrganizerViewController {
 
     @GetMapping("/delete-organizer/{id}")
     public String deleteOrganizer(@PathVariable Long id) throws NotFound {
-//        ModelAndView modelAndView = new ModelAndView("all-organizers");
 
         organizerService.deleteOrganizerById(id);
 
@@ -57,7 +55,7 @@ public class OrganizerViewController {
     public String createOrganizer(@ModelAttribute CreateUpdateOrganizerDto createUpdateOrganizerDto) throws AlreadyExists, BadRequest {
         organizerService.createOrganizer(createUpdateOrganizerDto);
 
-        return "redirect:/all-organizers";
+        return "redirect:/";
     }
 
     @GetMapping("/update-organizer/{id}")
@@ -65,7 +63,6 @@ public class OrganizerViewController {
         CreateUpdateOrganizerDto createUpdateOrganizerDto = new CreateUpdateOrganizerDto();
         OrganizerDto existingOrganizer = organizerService.getOrganizerById(id);
 
-        //todo update tylko w przypadku gdy pole w formularzu jest wypełnione
 
         ModelAndView modelAndView = new ModelAndView("update_organizer_form");
         modelAndView.addObject("createUpdateOrganizerDto", createUpdateOrganizerDto);

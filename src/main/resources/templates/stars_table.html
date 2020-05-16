@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Site made with Mobirise Website Builder v4.12.2, https://mobirise.com -->
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
-    <link href="assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
-    <meta content="Website Maker Description" name="description">
+    <link href="assets/images/gdzie_potanczymy_logo_transparent.png" rel="shortcut icon" type="image/x-icon">
+    <meta content="" name="description">
 
-    <title>Eventy</title>
+    <title>Stars</title>
     <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
@@ -43,42 +42,38 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="index.html">
-                         <img alt="Mobirise" src="assets/images/logo2.png" style="height: 3.8rem;">
+                    <a href="/">
+
+                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="index.html">
+                    <a class="navbar-caption text-white display-4" href="/">
                         GDZIE POTAŃCZYMY
                     </a>
                 </span>
             </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-events">
                         Events
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-dance-types">
-                        Dance_Types
+                        Dance Types
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="/all-organizers">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a  class="nav-link link text-white display-4" href="/all-organizers">
                         Organizers
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-participants">
                         Participants
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="/all-stars">
-                        Stars
                     </a>
                 </li>
             </ul>
@@ -111,6 +106,9 @@
             </div>
 
             <div class="container scroll">
+                <a href="/new-star"  sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">New star</a>
+                <br>
+                <a href="/">Back</a>
                 <table cellspacing="0" class="table isSearch">
                     <thead>
                     <tr class="table-heads ">
@@ -119,10 +117,10 @@
                         <th class="head-item mbr-fonts-style display-9">COUNTRY</th>
                         <th class="head-item mbr-fonts-style display-9">DESCRIPTION</th>
                         <th class="head-item mbr-fonts-style display-9">COMMENTS</th>
-                        <th class="head-item mbr-fonts-style display-9">CREATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-9">UPDATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-9">UPDATE</th>
-                        <th class="head-item mbr-fonts-style display-9">DELETE</th>
+                        <th class="head-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')">CREATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')">UPDATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')">UPDATE</th>
+                        <th class="head-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')">DELETE</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,16 +130,17 @@
                         <td class="body-item mbr-fonts-style display-9" th:text="${star.country}"></td>
                         <td class="body-item mbr-fonts-style display-9" th:text="${star.description}"></td>
                         <td class="body-item mbr-fonts-style display-9" th:text="${star.comments}"></td>
-                        <td class="body-item mbr-fonts-style display-9" th:text="${star.createdAt}"></td>
-                        <td class="body-item mbr-fonts-style display-9" th:text="${star.updatedAt}"></td>
-                        <td class="body-item mbr-fonts-style display-9"><a th:href="'/update-star/' + ${star.id}">update</a></td>
-                        <td class="body-item mbr-fonts-style display-9"><a style="color: red;" th:href="'/delete-star/' + ${star.id}">delete</a></td>
+                        <td class="body-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')" th:text="${star.createdAt}"></td>
+                        <td class="body-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')" th:text="${star.updatedAt}"></td>
+                        <td class="body-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')"><a
+                                th:href="'/update-star/' + ${star.id}">update</a></td>
+                        <td class="body-item mbr-fonts-style display-9" sec:authorize="hasRole('ADMIN')"><a style="color: red;"
+                                                                           th:href="'/delete-star/' + ${star.id}">delete</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <a href="/new-star">New star</a>
-                <br>
-                <a href="index.html">Back</a>
+
             </div>
             <div class="container table-info-container">
                 <div class="row info">

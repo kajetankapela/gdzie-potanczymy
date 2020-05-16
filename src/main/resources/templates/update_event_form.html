@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Site made with Mobirise Website Builder v4.12.2, https://mobirise.com -->
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
-    <link href="/assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
-    <meta content="Web Page Generator Description" name="description">
+    <link href="/assets/images/gdzie_potanczymy_logo_transparent.png" rel="shortcut icon" type="image/x-icon">
+    <meta content="" name="description">
 
     <title>Update Event Form</title>
     <link href="/assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
@@ -43,40 +41,41 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="index.html">
-                         <img alt="Mobirise" src="/assets/images/logo2.png" style="height: 3.8rem;">
+                    <a href="/">
+
+                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png" style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="index.html">
+                    <a class="navbar-caption text-white display-4" href="/">
                         GDZIE POTAŃCZYMY
                     </a>
                 </span>
             </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-events">
                         Events
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-dance-types">
-                        Dance_Types
+                        Dance Types
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="/all-organizers">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a  class="nav-link link text-white display-4" href="/all-organizers">
                         Organizers
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-participants">
                         Participants
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link link text-white display-4" href="/all-stars">
                         Stars
                     </a>
@@ -104,7 +103,8 @@
         <div class="row justify-content-center">
             <div class="media-container-column col-lg-8">
                 <!---Formbuilder Form--->
-                <form class="mbr-form form-with-styler" method="POST" th:action="@{/update-event/{id}(id=${existingEvent.id})}"
+                <form class="mbr-form form-with-styler" method="POST"
+                      th:action="@{/update-event/{id}(id=${existingEvent.id})}"
                       th:object="${createUpdateEventDto}">
 
                     <div class="dragArea row">
@@ -113,7 +113,8 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="name-form1-l">
                                 Name
                             </label>
-                            <input class="form-control display-7" id="name-form1-l" name="name" required="required" th:field="*{name}"
+                            <input class="form-control display-7" id="name-form1-l" name="name" required="required"
+                                   th:field="*{name}"
                                    th:placeholder="${existingEvent.name}" type="text">
                         </div>
 
@@ -121,7 +122,8 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="date-form1-l">
                                 Start_Date
                             </label>
-                            <input class="form-control display-7" id="date-form1-l" name="date" required="required" th:field="*{startDate}"
+                            <input class="form-control display-7" id="date-form1-l" name="date" required="required"
+                                   th:field="*{startDate}"
                                    th:placeholder="${existingEvent.startDate}" type="datetime-local">
                         </div>
 
@@ -129,7 +131,8 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="date-form2-l">
                                 Start_Date
                             </label>
-                            <input class="form-control display-7" id="date-form2-l" name="date" required="required" th:field="*{endDate}"
+                            <input class="form-control display-7" id="date-form2-l" name="date" required="required"
+                                   th:field="*{endDate}"
                                    th:placeholder="${existingEvent.endDate}" type="datetime-local">
                         </div>
 
@@ -137,7 +140,8 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form1-l">
                                 Description
                             </label>
-                            <textarea class="form-control display-7" id="message-form1-l" name="message" th:field="*{description}"
+                            <textarea class="form-control display-7" id="message-form1-l" name="message"
+                                      th:field="*{description}"
                                       th:placeholder="${existingEvent.description}"
                                       type="text"></textarea>
                         </div>
@@ -146,7 +150,8 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form2-l">
                                 Comments
                             </label>
-                            <textarea class="form-control display-7" id="message-form2-l" name="message" th:field="*{comments}" th:placeholder="${existingEvent.comments}"
+                            <textarea class="form-control display-7" id="message-form2-l" name="message"
+                                      th:field="*{comments}" th:placeholder="${existingEvent.comments}"
                                       type="text"></textarea>
                         </div>
 
@@ -177,7 +182,8 @@
                                 City
                             </label>
                             <input class="form-control display-7"
-                                   id="address-form3-l" name="name" required="required" th:field="*{createUpdateAddressDto.city}"
+                                   id="address-form3-l" name="name" required="required"
+                                   th:field="*{createUpdateAddressDto.city}"
                                    th:placeholder="${existingEvent.address.city}" type="text">
                         </div>
 

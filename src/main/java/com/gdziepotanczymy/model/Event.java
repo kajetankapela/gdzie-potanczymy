@@ -55,8 +55,6 @@ public class Event {
     private List<Participant> participants = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
-//    @Builder.Default
-//    private Organizer organizer = new Organizer();
     private Organizer organizer;
 }
 

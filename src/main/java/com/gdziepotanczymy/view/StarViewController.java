@@ -4,7 +4,8 @@ import com.gdziepotanczymy.controller.exception.AlreadyExists;
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.service.StarService;
-import com.gdziepotanczymy.service.dto.*;
+import com.gdziepotanczymy.service.dto.CreateUpdateStarDto;
+import com.gdziepotanczymy.service.dto.StarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -63,7 +64,6 @@ public class StarViewController {
         CreateUpdateStarDto createUpdateStarDto = new CreateUpdateStarDto();
         StarDto existingStar = starService.getStarById(id);
 
-        //todo update tylko w przypadku gdy pole w formularzu jest wypełnione
 
         ModelAndView modelAndView = new ModelAndView("update_star_form");
         modelAndView.addObject("createUpdateStarDto", createUpdateStarDto);

@@ -9,8 +9,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
 @SuperBuilder
-public class CreateUpdateOrganizerDto extends CreateUpdateUserDto{
+public class CreateUpdateOrganizerDto extends CreateUpdateUserDto {
 
 }

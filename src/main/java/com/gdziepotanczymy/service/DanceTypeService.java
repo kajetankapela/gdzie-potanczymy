@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +39,6 @@ public class DanceTypeService {
 
     @Transactional
     public DanceTypeDto createDanceType(CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws BadRequest, AlreadyExists {
-//        isDanceTypeOk(createUpdateDanceTypeDto);
 
         DanceType danceType = DanceType.builder()
                 .name(createUpdateDanceTypeDto.getName())
@@ -56,7 +54,6 @@ public class DanceTypeService {
 
     @Transactional
     public DanceTypeDto updateDanceTypeById(Long id, CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws NotFound, BadRequest, AlreadyExists {
-//        isDanceTypeOk(createUpdateDanceTypeDto);
 
         DanceType existingDanceType = repository.findById(id).orElseThrow(NotFound::new);
 
@@ -79,13 +76,4 @@ public class DanceTypeService {
         return mapper.toDto(existingDanceType);
     }
 
-//    private void isDanceTypeOk(CreateUpdateDanceTypeDto createUpdateDanceTypeDto) throws BadRequest, AlreadyExists {
-//        if (createUpdateDanceTypeDto.getName() == null || createUpdateDanceTypeDto.getName().isEmpty()) {
-//            throw new BadRequest();
-//        }
-//
-//        if (repository.existsByName(createUpdateDanceTypeDto.getName())) {
-//            throw new AlreadyExists();
-//        }
-//    }
 }

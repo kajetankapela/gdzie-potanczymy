@@ -15,7 +15,6 @@ public class ParticipantDtoMapper {
     @Transactional
     public ParticipantDto toDto(Participant participant) {
         return ParticipantDto.builder()
-//                .id(participant.getId())
                 .id(participant.getId())
                 .name(participant.getName())
                 .surname(participant.getSurname())

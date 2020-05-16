@@ -10,8 +10,6 @@ import java.time.OffsetDateTime;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-//@AllArgsConstructor
-//@RequiredArgsConstructor
 public abstract class UserDto {
     protected Long id;
     protected String name;

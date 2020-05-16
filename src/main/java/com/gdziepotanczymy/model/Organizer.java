@@ -3,20 +3,19 @@ package com.gdziepotanczymy.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-//@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 public class Organizer extends User {
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
     @Builder.Default

@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Site made with Mobirise Website Builder v4.12.2, https://mobirise.com -->
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="Mobirise v4.12.2, mobirise.com" name="generator">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
-    <link href="assets/images/logo2.png" rel="shortcut icon" type="image/x-icon">
-    <meta content="Web Page Generator Description" name="description">
+    <link href="assets/images/gdzie_potanczymy_logo_transparent.png" rel="shortcut icon" type="image/x-icon">
+    <meta content="" name="description">
 
     <title>Create Event Form</title>
     <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
@@ -20,6 +18,8 @@
     <link href="assets/theme/css/style.css" rel="stylesheet">
     <link as="style" href="assets/mobirise/css/mbr-additional.css" rel="preload">
     <link href="assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
+
+
 
 
 </head>
@@ -43,12 +43,14 @@
         <div class="menu-logo">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="index.html">
-                         <img alt="Mobirise" src="assets/images/logo2.png" style="height: 3.8rem;">
+                    <a href="/">
+
+                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png"
+                              style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="index.html">
+                    <a class="navbar-caption text-white display-4" href="/">
                         GDZIE POTAŃCZYMY
                     </a>
                 </span>
@@ -61,22 +63,22 @@
                         Events
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-dance-types">
-                        Dance_Types
+                        Dance Types
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link link text-white display-4" href="/all-organizers">
                         Organizers
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-participants">
                         Participants
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link link text-white display-4" href="/all-stars">
                         Stars
                     </a>
@@ -146,11 +148,13 @@
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form2-l">
                                 Comments
                             </label>
-                            <textarea class="form-control display-7" id="message-form2-l" name="message" th:field="*{comments}"
+                            <textarea class="form-control display-7" id="message-form2-l" name="message"
+                                      th:field="*{comments}"
                                       type="text"></textarea>
                         </div>
 
                         <div class="col-md-12 form-group">Address:</div>
+
 
                         <div class="col-md-6  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form1-l">
@@ -258,6 +262,10 @@
 <script src="assets/parallax/jarallax.min.js"></script>
 <script src="assets/theme/js/script.js"></script>
 <script src="assets/formoid/formoid.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="jquery.datetimepicker.js"></script>
+
+
 
 
 </body>

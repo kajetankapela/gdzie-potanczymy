@@ -35,11 +35,8 @@ public class DanceTypeViewController {
 
     @GetMapping("/delete-dance-type/{id}")
     public String deleteDanceType(@PathVariable Long id) throws NotFound {
-//        ModelAndView modelAndView = new ModelAndView("all-dance-types");
 
         danceTypeService.deleteDanceTypeById(id);
-
-        //todo obsługa błędu w przypdaku używania danego dancetype przez Event
 
         return "redirect:/all-dance-types";
     }
@@ -65,8 +62,6 @@ public class DanceTypeViewController {
     public ModelAndView displayUpdateDanceTypeForm(@PathVariable Long id) throws NotFound {
         CreateUpdateDanceTypeDto createUpdateDanceTypeDto = new CreateUpdateDanceTypeDto();
         DanceTypeDto existingDanceType = danceTypeService.getDanceTypeById(id);
-
-        //todo update tylko w przypadku gdy pole w formularzu jest wypełnione
 
         ModelAndView modelAndView = new ModelAndView("update_dance_type_form");
         modelAndView.addObject("createUpdateDanceTypeDto", createUpdateDanceTypeDto);

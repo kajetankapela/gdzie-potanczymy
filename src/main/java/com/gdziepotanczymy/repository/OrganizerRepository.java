@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrganizerRepository extends JpaRepository<Organizer, Long> {
-//    boolean existsByName(String name);
 }

@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 
 @Data
 @Embeddable
-//@Builder
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

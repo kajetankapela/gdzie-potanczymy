@@ -4,6 +4,10 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+### OLD FILES ###
+src/main/resources/old/
+src/main/resources/templates/old/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -29,3 +33,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/old/

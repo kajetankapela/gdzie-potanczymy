@@ -11,13 +11,12 @@ import javax.validation.constraints.Size;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-//@RequiredArgsConstructor
 public abstract class CreateUpdateUserDto {
     @Size(min = 3)
     protected String name;
     @Size(min = 3)
     protected String login;
-    @Size(min=3)
+    @Size(min = 3)
     protected String password;
     @Email
     protected String email;
