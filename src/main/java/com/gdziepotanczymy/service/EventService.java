@@ -2,12 +2,10 @@ package com.gdziepotanczymy.service;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
-import com.gdziepotanczymy.model.Address;
-import com.gdziepotanczymy.model.Event;
-import com.gdziepotanczymy.model.NumberOfSeats;
-import com.gdziepotanczymy.model.Organizer;
+import com.gdziepotanczymy.model.*;
 import com.gdziepotanczymy.repository.EventRepository;
 import com.gdziepotanczymy.repository.OrganizerRepository;
+import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
@@ -25,6 +23,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final EventDtoMapper eventDtoMapper;
     private final OrganizerRepository organizerRepository;
+    private final ParticipantRepository participantRepository;
 
     @Transactional
     public List<EventDto> getAllEvents() {
@@ -133,5 +132,25 @@ public class EventService {
         eventRepository.delete(existingEvent);
 
         return eventDtoMapper.toDto(existingEvent);
+    }
+
+    @Transactional
+    public EventDto signUpForEvent(Long id, String login) throws NotFound {
+        Event existingEvent = eventRepository.findById(id).orElseThrow(NotFound::new);
+        Participant existingParticipant = participantRepository.findByLogin(login);
+
+        List<Event> events = existingParticipant.getEvents();
+        events.add(existingEvent);
+        existingParticipant.setEvents(events);
+
+        participantRepository.save(existingParticipant);
+
+        List<Participant> participants = existingEvent.getParticipants();
+        participants.add(existingParticipant);
+        existingEvent.setParticipants(participants);
+
+        Event savedEvent = eventRepository.save(existingEvent);
+
+        return eventDtoMapper.toDto(savedEvent);
     }
 }

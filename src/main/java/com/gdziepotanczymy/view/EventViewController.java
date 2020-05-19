@@ -49,10 +49,16 @@ public class EventViewController {
         return "redirect:/all-events";
     }
 
+    @GetMapping("/sign-up/{id}/{login}")
+    public String signUpForEvent(@PathVariable Long id, @PathVariable String login) throws NotFound {
+        eventService.signUpForEvent(id, login);
+
+        return "redirect:/all-events";
+    }
+
     @GetMapping("/new-event")
     public ModelAndView displayCreateEventForm() {
         CreateUpdateEventDto createUpdateEventDto = new CreateUpdateEventDto();
-//        List<OrganizerDto> organizers = organizerService.getAllOrganizers();
 
         ModelAndView modelAndView = new ModelAndView("create_event_form");
         modelAndView.addObject("createUpdateEventDto", createUpdateEventDto);

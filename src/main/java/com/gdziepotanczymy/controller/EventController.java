@@ -36,8 +36,6 @@ public class EventController {
         return eventService.createEvent(createUpdateEventDto);
     }
 
-
-
     @PutMapping("/{id}")
     public EventDto updateEventById(@PathVariable Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
         return eventService.updateEventById(id, createUpdateEventDto);

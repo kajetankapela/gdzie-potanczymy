@@ -56,5 +56,23 @@ public class InitDataService {
                 .password("org")
                 .login("org")
                 .build());
+        participantRepository.save(Participant.builder()
+                .name("participant")
+                .role("PARTICIPANT")
+                .gender("male")
+                .address(Address.builder()
+                        .country("pol")
+                        .postalCode("asd")
+                        .city("asd")
+                        .street("asd")
+                        .number("asd")
+                        .build())
+                .phoneNumber("123123")
+                .email("part@part")
+                .login("part")
+                .password("part")
+                .surname("dasd")
+                .createdAt(OffsetDateTime.now())
+                .build());
     }
 }

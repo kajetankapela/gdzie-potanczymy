@@ -90,7 +90,7 @@
     </div>
     <div class="container container-table">
         <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
-            EVENTY</h2>
+            EVENTS</h2>
 
         <div class="table-wrapper">
             <div class="container">
@@ -106,7 +106,7 @@
             </div>
 
             <div class="container scroll">
-                <a ,href="/new-event" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">New event</a>
+                <a href="/new-event" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">New event</a>
                 <br>
                 <a href="/">Back</a>
                 <table cellspacing="0" class="table isSearch">
@@ -146,12 +146,19 @@
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.city}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.street}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.number}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')" th:text="${event.createdAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')" th:text="${event.updatedAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"><a th:href="'/update-event/' + ${event.id}">update</a>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
+                            th:text="${event.createdAt}"></td>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
+                            th:text="${event.updatedAt}"></td>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">
+                            <a th:href="'/update-event/' + ${event.id}">update</a>
                         </td>
                         <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">
                             <a style="color: red;" th:href="'/delete-event/' + ${event.id}">delete</a>
+                        </td>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasAnyRole('ADMIN', 'PARTICIPANT')">
+                            <a style="color: limegreen;" th:href="'/sign-up/' + ${event.id} + '/'
+                            + ${#authentication.getName()}">sign up</a>
                         </td>
                     </tr>
                     </tbody>
