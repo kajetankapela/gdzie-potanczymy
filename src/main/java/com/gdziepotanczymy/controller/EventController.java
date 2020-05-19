@@ -36,10 +36,7 @@ public class EventController {
         return eventService.createEvent(createUpdateEventDto);
     }
 
-    @PostMapping("{eventId}/{organizerId}")
-    public EventDto setOrganizerToEvent(@PathVariable Long eventId, @PathVariable Long organizerId) throws NotFound, BadRequest {
-        return eventService.addOrganizerToEvent(eventId, organizerId);
-    }
+
 
     @PutMapping("/{id}")
     public EventDto updateEventById(@PathVariable Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
