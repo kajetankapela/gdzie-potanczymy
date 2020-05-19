@@ -50,7 +50,7 @@ public class EventService {
     }
 
     @Transactional
-    public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+    public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest, NotFound {
 
         Address address = Address.builder()
                 .country(createUpdateEventDto.getCreateUpdateAddressDto().getCountry())
@@ -66,26 +66,15 @@ public class EventService {
                 .unconfirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getUnconfirmedSeats())
                 .confirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getConfirmedSeats())
                 .build();
-        Organizer organizer = Organizer.builder()
-                .name("name")
-                .login("login")
-                .password("password")
-                .email("email@email")
-                .phoneNumber("phoneNumber")
-                .address(Address.builder()
-                        .country("country")
-                        .postalCode("postalCode")
-                        .city("city")
-                        .street("street")
-                        .number("number")
-                        .build())
-                .createdAt(OffsetDateTime.now())
-                .build();
+
+        Organizer organizer = organizerRepository.findByLogin(createUpdateEventDto.getOrganizerLogin());
 
         Event event = Event.builder()
                 .name(createUpdateEventDto.getName())
-                .startDate(createUpdateEventDto.getStartDate())
-                .endDate(createUpdateEventDto.getEndDate())
+                .startDate("" + createUpdateEventDto.getStartDay() + "/"
+                        + createUpdateEventDto.getStartMonth() + "/" + createUpdateEventDto.getStartYear())
+                .endDate("" + createUpdateEventDto.getEndDay() + "/"
+                        + createUpdateEventDto.getEndMonth() + "/" + createUpdateEventDto.getEndYear())
                 .organizer(organizer)
                 .description(createUpdateEventDto.getDescription())
                 .comments(createUpdateEventDto.getComments())
@@ -99,18 +88,7 @@ public class EventService {
         return eventDtoMapper.toDto(savedEvent);
     }
 
-    @Transactional
-    public EventDto addOrganizerToEvent(Long eventId, Long organizerId) throws BadRequest, NotFound {
-        Event event = eventRepository.findById(eventId).orElseThrow(NotFound::new);
 
-        Organizer organizer = organizerRepository.findById(organizerId).orElseThrow(NotFound::new);
-
-        event.setOrganizer(organizer);
-
-        Event savedEvent = eventRepository.save(event);
-
-        return eventDtoMapper.toDto(savedEvent);
-    }
 
     @Transactional
     public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
@@ -125,16 +103,18 @@ public class EventService {
 
         NumberOfSeats numberOfSeats = NumberOfSeats.builder()
                 .allSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
-                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getFreeSeats())
-                .unconfirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getUnconfirmedSeats())
-                .confirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getConfirmedSeats())
+                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
+                .unconfirmedSeats(0)
+                .confirmedSeats(0)
                 .build();
 
         Event existingEvent = eventRepository.findById(id).orElseThrow(NotFound::new);
 
         existingEvent.setName(createUpdateEventDto.getName());
-        existingEvent.setStartDate(createUpdateEventDto.getStartDate());
-        existingEvent.setEndDate(createUpdateEventDto.getEndDate());
+        existingEvent.setStartDate("" + createUpdateEventDto.getStartDay() + "/"
+                + createUpdateEventDto.getStartMonth() + "/" + createUpdateEventDto.getStartYear());
+        existingEvent.setEndDate("" + createUpdateEventDto.getEndDay() + "/"
+                + createUpdateEventDto.getEndMonth() + "/" + createUpdateEventDto.getEndYear());
         existingEvent.setDescription(createUpdateEventDto.getDescription());
         existingEvent.setComments(createUpdateEventDto.getComments());
         existingEvent.setAddress(address);

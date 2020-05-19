@@ -1,6 +1,7 @@
 package com.gdziepotanczymy.model;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 
 @Data
+@Getter
 @Entity
 @SuperBuilder
 @NoArgsConstructor

@@ -25,9 +25,9 @@ public class Event {
     @Column(name = "name")
     private String name;
     @Column(name = "startDate")
-    private LocalDateTime startDate;
+    private String startDate;
     @Column(name = "endDate")
-    private LocalDateTime endDate;
+    private String endDate;
     @Column(name = "description")
     private String description;
     @Column(name = "comments")

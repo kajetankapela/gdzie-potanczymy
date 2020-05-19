@@ -19,10 +19,8 @@ import java.util.List;
 public class EventDto {
     private Long id;
     private String name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime endDate;
+    private String startDate;
+    private String endDate;
     private String description;
     private String comments;
     private OffsetDateTime createdAt;

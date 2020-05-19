@@ -20,8 +20,6 @@
     <link href="assets/mobirise/css/mbr-additional.css" rel="stylesheet" type="text/css">
 
 
-
-
 </head>
 <body>
 <section class="menu cid-rSaOsOMKqH" id="menu1-k" once="menu">
@@ -119,21 +117,62 @@
                                    th:field="*{name}" type="text">
                         </div>
 
-                        <div class="col-md-4  form-group" data-for="date">
-                            <label class="form-control-label mbr-fonts-style display-7" for="date-form1-l">
-                                Start_Date
-                            </label>
-                            <input class="form-control display-7" id="date-form1-l" name="date" required="required"
-                                   th:field="*{startDate}" type="datetime-local">
+                        <div class="col-md-10">
+                            <p>Start Date</p>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form11-l">
+                                    day
+                                </label>
+                                <input class="form-control display-7" id="date-form11-l" max="31" min="1"
+                                       name="date" required="required" th:field="*{startDay}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form12-l">
+                                    month
+                                </label>
+                                <input class="form-control display-7" id="date-form12-l" max="12" min="1"
+                                       name="date" required="required" th:field="*{startMonth}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form13-l">
+                                    year
+                                </label>
+                                <input class="form-control display-7" id="date-form13-l" max="2100" min="2020"
+                                       name="date" required="required" th:field="*{startYear}" type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+
+                            <p>End Date</p>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form31-l">
+                                    day
+                                </label>
+                                <input class="form-control display-7" id="date-form31-l" max="31" min="1"
+                                       name="date" required="required" th:field="*{endDay}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form32-l">
+                                    month
+                                </label>
+                                <input class="form-control display-7" id="date-form32-l" max="12" min="1"
+                                       name="date" required="required" th:field="*{endMonth}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form33-l">
+                                    year
+                                </label>
+                                <input class="form-control display-7" id="date-form33-l" max="2100" min="2020"
+                                       name="date" required="required" th:field="*{endYear}" type="number">
+                            </div>
                         </div>
 
-                        <div class="col-md-4  form-group" data-for="date">
-                            <label class="form-control-label mbr-fonts-style display-7" for="date-form2-l">
-                                Start_Date
-                            </label>
-                            <input class="form-control display-7" id="date-form2-l" name="date" required="required"
-                                   th:field="*{endDate}" type="datetime-local">
-                        </div>
 
                         <div class="col-md-12 form-group" data-for="message">
                             <label class="form-control-label mbr-fonts-style display-7" for="message-form1-l">
@@ -152,6 +191,18 @@
                                       th:field="*{comments}"
                                       type="text"></textarea>
                         </div>
+
+
+
+<!--                        ORGANIZER-->
+
+                        <div style="">
+                            <input th:id="organizerLogin" th:name="organizerLogin" th:value="${#authentication.getName()}" type="hidden">
+                        </div>
+
+<!--                        ORGANIZER-->
+
+
 
                         <div class="col-md-12 form-group">Address:</div>
 
@@ -201,6 +252,8 @@
                         </div>
 
 
+
+
                         <div class="col-md-12 form-group">Number_Of_Seats:</div>
 
                         <div class="col-md-3  form-group" data-for="name">
@@ -209,36 +262,8 @@
                             </label>
                             <input class="form-control display-7" id="nos-form1-l" name="name"
                                    required="required"
-                                   th:field="*{createUpdateNumberOfSeatsDto.allSeats}" type="text">
+                                   min="0" th:field="*{createUpdateNumberOfSeatsDto.allSeats}" type="number">
                         </div>
-
-                        <div class="col-md-3  form-group" data-for="name">
-                            <label class="form-control-label mbr-fonts-style display-7" for="nos-form2-l">
-                                Free_Seats
-                            </label>
-                            <input class="form-control display-7" id="nos-form2-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateNumberOfSeatsDto.freeSeats}" type="text">
-                        </div>
-
-                        <div class="col-md-3  form-group" data-for="name">
-                            <label class="form-control-label mbr-fonts-style display-7" for="nos-form3-l">
-                                Unconfirmed_Seats
-                            </label>
-                            <input class="form-control display-7" id="nos-form3-l"
-                                   name="name" required="required"
-                                   th:field="*{createUpdateNumberOfSeatsDto.unconfirmedSeats}" type="text">
-                        </div>
-
-                        <div class="col-md-3  form-group" data-for="name">
-                            <label class="form-control-label mbr-fonts-style display-7" for="nos-form4-l">
-                                Confirmed_Seats
-                            </label>
-                            <input class="form-control display-7" id="nos-form4-l" name="name"
-                                   required="required"
-                                   th:field="*{createUpdateNumberOfSeatsDto.confirmedSeats}" type="text">
-                        </div>
-
 
                         <div class="col-md-12 input-group-btn align-center">
                             <button class="btn btn-primary btn-form display-4" type="submit">Create!</button>
@@ -264,8 +289,6 @@
 <script src="assets/formoid/formoid.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="jquery.datetimepicker.js"></script>
-
-
 
 
 </body>

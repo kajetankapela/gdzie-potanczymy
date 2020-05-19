@@ -40,5 +40,21 @@ public class InitDataService {
                 .role("ADMIN")
                 .createdAt(OffsetDateTime.now())
                 .build());
+        organizerRepository.save(Organizer.builder()
+                .name("organizer01")
+                .role("ORGANIZER")
+                .address(Address.builder()
+                        .country("pol")
+                        .postalCode("123")
+                        .city("cit")
+                        .street("asd")
+                        .number("12")
+                        .build())
+                .createdAt(OffsetDateTime.now())
+                .email("org@org")
+                .phoneNumber("123123")
+                .password("org")
+                .login("org")
+                .build());
     }
 }

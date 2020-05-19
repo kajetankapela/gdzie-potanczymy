@@ -17,13 +17,22 @@ import java.time.LocalDateTime;
 public class CreateUpdateEventDto {
     @NotBlank
     private String name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime endDate;
+    @NotBlank
+    private Integer startDay;
+    @NotBlank
+    private Integer startMonth;
+    @NotBlank
+    private Integer startYear;
+    @NotBlank
+    private Integer endDay;
+    @NotBlank
+    private Integer endMonth;
+    @NotBlank
+    private Integer endYear;
     @NotBlank
     private String description;
     private String comments;
+    private String organizerLogin;
     @JsonUnwrapped
     @Builder.Default
     private CreateUpdateAddressDto createUpdateAddressDto = new CreateUpdateAddressDto();

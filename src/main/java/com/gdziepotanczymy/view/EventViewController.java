@@ -2,12 +2,16 @@ package com.gdziepotanczymy.view;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.Organizer;
+import com.gdziepotanczymy.model.User;
 import com.gdziepotanczymy.service.EventService;
 import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.OrganizerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -35,16 +40,6 @@ public class EventViewController {
 
         return modelAndView;
     }
-//
-//    @GetMapping("/all-organizer-events/{id}")
-//    public ModelAndView displayOrganizerEventsTable(@PathVariable Long id) throws NotFound {
-//        List<EventDto> events = eventService.getEventsByOrganizerId(id);
-//
-//        ModelAndView modelAndView = new ModelAndView("organizer_events_table");
-//        modelAndView.addObject("events", events);
-//
-//        return modelAndView;
-//    }
 
     @GetMapping("/delete-event/{id}")
     public String deleteEvent(@PathVariable Long id) throws NotFound {
@@ -57,28 +52,22 @@ public class EventViewController {
     @GetMapping("/new-event")
     public ModelAndView displayCreateEventForm() {
         CreateUpdateEventDto createUpdateEventDto = new CreateUpdateEventDto();
-        List<OrganizerDto> organizers = organizerService.getAllOrganizers();
+//        List<OrganizerDto> organizers = organizerService.getAllOrganizers();
 
         ModelAndView modelAndView = new ModelAndView("create_event_form");
         modelAndView.addObject("createUpdateEventDto", createUpdateEventDto);
-        modelAndView.addObject("organizers", organizers);
+
 
         return modelAndView;
     }
 
     @PostMapping("/new-event")
-    public String createEvent(@ModelAttribute CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+    public String createEvent(@ModelAttribute CreateUpdateEventDto createUpdateEventDto) throws BadRequest, NotFound {
         eventService.createEvent(createUpdateEventDto);
 
         return "redirect:/all-events";
     }
 
-    @PostMapping("/set-organizer-to-event/{eventId}/{organizerId}")
-    public String addOrganizerToEvent(@PathVariable Long eventId, @PathVariable Long organizerId) throws NotFound, BadRequest {
-        eventService.addOrganizerToEvent(eventId, organizerId);
-
-        return "redirect:/all-events";
-    }
 
     @GetMapping("/update-event/{id}")
     public ModelAndView displayUpdateEventForm(@PathVariable Long id) throws NotFound {

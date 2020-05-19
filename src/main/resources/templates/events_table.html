@@ -116,6 +116,7 @@
                         <th class="head-item mbr-fonts-style display-16">NAME</th>
                         <th class="head-item mbr-fonts-style display-16">START_DATE</th>
                         <th class="head-item mbr-fonts-style display-16">END_DATE</th>
+                        <th class="head-item mbr-fonts-style display-16">FREE_SEATS</th>
                         <th class="head-item mbr-fonts-style display-16">ORGANIZER</th>
                         <th class="head-item mbr-fonts-style display-16">DESCRIPTION</th>
                         <th class="head-item mbr-fonts-style display-16">COMMENTS</th>
@@ -136,6 +137,7 @@
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.name}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.startDate}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.endDate}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.numberOfSeats.freeSeats}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.organizer.name}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.description}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.comments}"></td>

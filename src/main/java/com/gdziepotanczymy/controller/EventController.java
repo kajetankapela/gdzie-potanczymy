@@ -32,7 +32,7 @@ public class EventController {
     }
 
     @PostMapping()
-    public EventDto newEvent(@RequestBody CreateUpdateEventDto createUpdateEventDto) throws BadRequest {
+    public EventDto newEvent(@RequestBody CreateUpdateEventDto createUpdateEventDto) throws BadRequest, NotFound {
         return eventService.createEvent(createUpdateEventDto);
     }
 
