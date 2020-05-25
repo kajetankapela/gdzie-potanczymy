@@ -61,9 +61,9 @@ public class EventService {
 
         NumberOfSeats numberOfSeats = NumberOfSeats.builder()
                 .allSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
-                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getFreeSeats())
-                .unconfirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getUnconfirmedSeats())
-                .confirmedSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getConfirmedSeats())
+                .freeSeats(createUpdateEventDto.getCreateUpdateNumberOfSeatsDto().getAllSeats())
+                .unconfirmedSeats(0)
+                .confirmedSeats(0)
                 .build();
 
         Organizer organizer = organizerRepository.findByLogin(createUpdateEventDto.getOrganizerLogin());
@@ -138,16 +138,15 @@ public class EventService {
     public EventDto signUpForEvent(Long id, String login) throws NotFound {
         Event existingEvent = eventRepository.findById(id).orElseThrow(NotFound::new);
         Participant existingParticipant = participantRepository.findByLogin(login);
-
-        List<Event> events = existingParticipant.getEvents();
-        events.add(existingEvent);
-        existingParticipant.setEvents(events);
-
-        participantRepository.save(existingParticipant);
+        NumberOfSeats existingNumberOfSeats = existingEvent.getNumberOfSeats();
 
         List<Participant> participants = existingEvent.getParticipants();
         participants.add(existingParticipant);
         existingEvent.setParticipants(participants);
+
+        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()-1);
+        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()+1);
+        existingEvent.setNumberOfSeats(existingNumberOfSeats);
 
         Event savedEvent = eventRepository.save(existingEvent);
 

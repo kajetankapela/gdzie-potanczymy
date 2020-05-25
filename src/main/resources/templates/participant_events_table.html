@@ -8,7 +8,7 @@
     <link href="assets/images/gdzie_potanczymy_logo_transparent.png" rel="shortcut icon" type="image/x-icon">
     <meta content="" name="description">
 
-    <title>Events</title>
+    <title>My Events</title>
     <link href="assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
@@ -84,12 +84,11 @@
 
 <section class="section-table cid-rSaOViXxOV mbr-parallax-background" id="table1-n">
 
-
     <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(255, 255, 255);">
     </div>
     <div class="container container-table">
         <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
-            EVENTS</h2>
+            MY EVENTS</h2>
 
         <div class="table-wrapper">
             <div class="container">
@@ -105,8 +104,6 @@
             </div>
 
             <div class="container scroll">
-                <a href="/new-event" sec:authorize="hasAnyRole('ADMIN', 'ORGANIZER')">New event</a>
-                <br>
                 <a href="/">Back</a>
                 <table cellspacing="0" class="table isSearch">
                     <thead>
@@ -124,14 +121,11 @@
                         <th class="head-item mbr-fonts-style display-16">CITY</th>
                         <th class="head-item mbr-fonts-style display-16">STREET</th>
                         <th class="head-item mbr-fonts-style display-16">NUMBER</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">CREATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">UPDATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">UPDATE</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">DELETE</th>
+                        <th class="head-item mbr-fonts-style display-16">SIGN OUT</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="event : ${events}">
+                    <tr th:each="event : ${myEvents}">
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.id}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.name}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.startDate}"></td>
@@ -145,15 +139,74 @@
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.city}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.street}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.number}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.createdAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.updatedAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">
-                            <a th:href="'/update-event/' + ${event.id}">update</a>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasAnyRole('ADMIN', 'PARTICIPANT')">
+                            <a style="color: red;" th:href="'/sign-out/' + ${event.id} + '/'
+                            + ${#authentication.getName()}">sign up</a>
                         </td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">
-                            <a style="color: red;" th:href="'/delete-event/' + ${event.id}">delete</a>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-table">
+        <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+            MORE EVENTS</h2>
+
+        <div class="table-wrapper">
+            <div class="container">
+                <div class="row search">
+                    <div class="col-md-16"></div>
+                    <div class="col-md-16">
+                        <div class="dataTables_filter">
+                            <label class="searchInfo mbr-fonts-style display-7">Wyszukaj:</label>
+                            <input class="form-control input-sm" disabled="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container scroll">
+                <a href="/">Back</a>
+                <table cellspacing="0" class="table isSearch">
+                    <thead>
+                    <tr class="table-heads ">
+                        <th class="head-item mbr-fonts-style display-16">ID</th>
+                        <th class="head-item mbr-fonts-style display-16">NAME</th>
+                        <th class="head-item mbr-fonts-style display-16">START_DATE</th>
+                        <th class="head-item mbr-fonts-style display-16">END_DATE</th>
+                        <th class="head-item mbr-fonts-style display-16">FREE_SEATS</th>
+                        <th class="head-item mbr-fonts-style display-16">ORGANIZER</th>
+                        <th class="head-item mbr-fonts-style display-16">DESCRIPTION</th>
+                        <th class="head-item mbr-fonts-style display-16">COMMENTS</th>
+                        <th class="head-item mbr-fonts-style display-16">COUNTRY</th>
+                        <th class="head-item mbr-fonts-style display-16">POSTAL_CODE</th>
+                        <th class="head-item mbr-fonts-style display-16">CITY</th>
+                        <th class="head-item mbr-fonts-style display-16">STREET</th>
+                        <th class="head-item mbr-fonts-style display-16">NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-16">SIGN UP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${moreEvents}">
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.id}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.name}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.startDate}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.endDate}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.numberOfSeats.freeSeats}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.organizer.name}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.description}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.comments}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.country}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.postalCode}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.city}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.street}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.number}"></td>
+                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasAnyRole('ADMIN', 'PARTICIPANT')">
+                            <a style="color: limegreen;" th:href="'/sign-up/' + ${event.id} + '/'
+                            + ${#authentication.getName()}">sign up</a>
                         </td>
                     </tr>
                     </tbody>

@@ -39,6 +39,12 @@ public class ParticipantService {
     }
 
     @Transactional
+    public ParticipantDto getParticipantByLogin(String login) {
+        Participant participant = repository.findByLogin(login);
+        return participantDtoMapper.toDto(participant);
+    }
+
+    @Transactional
     public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {
 
         Address address = Address.builder()

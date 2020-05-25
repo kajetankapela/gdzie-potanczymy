@@ -2,16 +2,15 @@ package com.gdziepotanczymy.view;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
-import com.gdziepotanczymy.model.Organizer;
-import com.gdziepotanczymy.model.User;
+import com.gdziepotanczymy.model.Participant;
+import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.EventService;
-import com.gdziepotanczymy.service.OrganizerService;
+import com.gdziepotanczymy.service.ParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
-import com.gdziepotanczymy.service.dto.OrganizerDto;
+import com.gdziepotanczymy.service.dto.ParticipantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,7 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventViewController {
     private final EventService eventService;
-    private final OrganizerService organizerService;
+    private final ParticipantService participantService;
+    private final ParticipantRepository participantRepository;
 
     @GetMapping("/all-events")
     public ModelAndView displayEventsTable() {
@@ -37,6 +37,31 @@ public class EventViewController {
 
         ModelAndView modelAndView = new ModelAndView("events_table");
         modelAndView.addObject("events", events);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/all-participant-events/{login}")
+    public ModelAndView displayParticipantEventsTable(@PathVariable String login) throws NotFound {
+        List<EventDto> events = eventService.getAllEvents();
+        ParticipantDto participant = participantService.getParticipantByLogin(login);
+
+        List<EventDto> myEvents = new ArrayList<>();
+        List<EventDto> moreEvents = new ArrayList<>();
+
+        for (EventDto event : events) {
+            if (participant.getEvents().contains(event)) {
+                myEvents.add(event);
+            } else {
+                moreEvents.add(event);
+            }
+        }
+        System.out.println(myEvents);
+        System.out.println(moreEvents);
+
+        ModelAndView modelAndView = new ModelAndView("participant_events_table");
+        modelAndView.addObject("myEvents", myEvents);
+        modelAndView.addObject("moreEvents", moreEvents);
 
         return modelAndView;
     }
@@ -53,7 +78,8 @@ public class EventViewController {
     public String signUpForEvent(@PathVariable Long id, @PathVariable String login) throws NotFound {
         eventService.signUpForEvent(id, login);
 
-        return "redirect:/all-events";
+
+        return "redirect:/all-participant-events/"+login;
     }
 
     @GetMapping("/new-event")
