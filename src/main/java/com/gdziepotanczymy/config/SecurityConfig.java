@@ -25,8 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // autoryzuj wszystkie żądania
                 .antMatchers("/").permitAll()
                 .antMatchers("/assets/**").permitAll()
-                .antMatchers("/all-events").hasRole("ADMIN")
-                .antMatchers("/all-events").anonymous()
+                .antMatchers("/all-events").hasAnyRole("ADMIN", "ANONYMOUS")
                 .antMatchers("/all-participant-events").hasRole("PARTICIPANT")
                 .antMatchers("/all-organizer-events").hasRole("ORGANIZER")
                 .antMatchers("/all-organizers").authenticated()
@@ -40,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin() // generowanie formularza logowania
                 .permitAll()
                 .and()
-                .logout(); // dodanie wylogowania pod adresem /logout
+                .logout()
+                .logoutSuccessUrl("/"); // dodanie wylogowania pod adresem /logout
     }
 
     @Override

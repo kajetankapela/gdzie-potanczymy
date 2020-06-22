@@ -43,7 +43,8 @@
                 <span class="navbar-logo">
                     <a href="/">
 
-                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png" style="height: 3.8rem;">
+                         <img alt="Gdzie Potańczymy" src="/assets/images/gdzie_potanczymy_logo_transparent.png"
+                              style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
@@ -86,7 +87,6 @@
     </nav>
 </section>
 
-<section class="engine"><a href="https://mobirise.info/d">site maker</a></section>
 <section class="mbr-section form1 cid-rSaOsPrIRw mbr-parallax-background" id="form1-l">
 
 
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="col-md-10">
-                            <p>Start Date (before: <span th:value="${existingEvent.getStartDate()}"></span>)</p>
+                            <p>Start Date (before: <span th:text="${existingEvent.getStartDate()}"></span>)</p>
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form11-l">
@@ -149,7 +149,7 @@
 
                         <div class="col-md-10">
 
-                            <p>End Date (before: <span th:value="${existingEvent.getEndDate()}"></span>)</p>
+                            <p>End Date (before: <span th:text="${existingEvent.getEndDate()}"></span>)</p>
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form31-l">

@@ -136,6 +136,10 @@ public class EventService {
         participants.add(existingParticipant);
         existingEvent.setParticipants(participants);
 
+        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()-1);
+        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()+1);
+        existingEvent.setNumberOfSeats(existingNumberOfSeats);
+
         Event savedEvent = eventRepository.save(existingEvent);
 
         return eventDtoMapper.toDto(savedEvent);
@@ -145,6 +149,11 @@ public class EventService {
     public EventDto signOutFromEvent(Long id, String login) throws NotFound {
         Event existingEvent = eventRepository.findById(id).orElseThrow(NotFound::new);
         existingEvent.getParticipants().removeIf(participant -> participant.getLogin().equals(login));
+        NumberOfSeats existingNumberOfSeats = existingEvent.getNumberOfSeats();
+
+        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()+1);
+        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()-1);
+        existingEvent.setNumberOfSeats(existingNumberOfSeats);
 
         Event savedEvent = eventRepository.save(existingEvent);
         return eventDtoMapper.toDto(savedEvent);
