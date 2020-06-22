@@ -4,9 +4,12 @@ import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Address;
 import com.gdziepotanczymy.model.Participant;
+import com.gdziepotanczymy.repository.EventRepository;
 import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
+import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.ParticipantDto;
+import com.gdziepotanczymy.service.mapper.EventDtoMapper;
 import com.gdziepotanczymy.service.mapper.ParticipantDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ import java.util.stream.Collectors;
 public class ParticipantService {
     private final ParticipantRepository repository;
     private final ParticipantDtoMapper participantDtoMapper;
+    private final EventDtoMapper eventDtoMapper;
+    private final EventRepository eventRepository;
 
     @Transactional
     public List<ParticipantDto> getAllParticipants() {
@@ -39,10 +44,22 @@ public class ParticipantService {
     }
 
     @Transactional
-    public ParticipantDto getParticipantByLogin(String login) {
+    public List<EventDto> getAllParticipantEvents(String login) {
         Participant participant = repository.findByLogin(login);
-        return participantDtoMapper.toDto(participant);
+        return participant.getEvents().stream()
+                .map(eventDtoMapper::toDto)
+                .collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<EventDto> getMoreEvents(String login) {
+        Participant participant = repository.findByLogin(login);
+        return eventRepository.findAllByParticipantsNotContains(participant)
+                .stream()
+                .map(eventDtoMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     public ParticipantDto createParticipant(CreateUpdateParticipantDto createUpdateParticipantDto) throws BadRequest {

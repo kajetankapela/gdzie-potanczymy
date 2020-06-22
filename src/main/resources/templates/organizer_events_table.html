@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -44,7 +44,8 @@
                 <span class="navbar-logo">
                     <a href="/">
 
-                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png" style="height: 3.8rem;">
+                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png"
+                              style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
@@ -54,29 +55,29 @@
                 </span>
             </div>
         </div>
-        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/">
                         Home
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-dance-types">
                         Dance Types
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                    <a  class="nav-link link text-white display-4" href="/all-organizers">
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/all-organizers">
                         Organizers
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-participants">
                         Participants
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-stars">
                         Stars
                     </a>
@@ -93,13 +94,13 @@
     </div>
     <div class="container container-table">
         <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
-            EVENTS</h2>
+            MY EVENTS</h2>
 
         <div class="table-wrapper">
             <div class="container">
                 <div class="row search">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-16"></div>
+                    <div class="col-md-16">
                         <div class="dataTables_filter">
                             <label class="searchInfo mbr-fonts-style display-7">Wyszukaj:</label>
                             <input class="form-control input-sm" disabled="">
@@ -109,55 +110,113 @@
             </div>
 
             <div class="container scroll">
-                <a href="/new-event" sec:authorize="hasRole('ADMIN')">New event</a>
+                <a href="/new-event/">New event</a>
                 <br>
                 <a href="/">Back</a>
                 <table cellspacing="0" class="table isSearch">
                     <thead>
                     <tr class="table-heads ">
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">ID</th>
+                        <th class="head-item mbr-fonts-style display-16">NAME</th>
+                        <th class="head-item mbr-fonts-style display-16">START_DATE</th>
+                        <th class="head-item mbr-fonts-style display-16">END_DATE</th>
+                        <th class="head-item mbr-fonts-style display-16">FREE_SEATS</th>
+                        <th class="head-item mbr-fonts-style display-16">DESCRIPTION</th>
+                        <th class="head-item mbr-fonts-style display-16">COMMENTS</th>
+                        <th class="head-item mbr-fonts-style display-16">COUNTRY</th>
+                        <th class="head-item mbr-fonts-style display-16">POSTAL_CODE</th>
+                        <th class="head-item mbr-fonts-style display-16">CITY</th>
+                        <th class="head-item mbr-fonts-style display-16">STREET</th>
+                        <th class="head-item mbr-fonts-style display-16">NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-16">UPDATE</th>
+                        <th class="head-item mbr-fonts-style display-16">DELETE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${myEvents}">
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.name}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.startDate}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.endDate}"></td>
+                        <td class="body-item mbr-fonts-style display-16"
+                            th:text="${event.numberOfSeats.freeSeats}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.description}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.comments}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.country}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.postalCode}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.city}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.street}"></td>
+                        <td class="body-item mbr-fonts-style display-16" th:text="${event.address.number}"></td>
+                        <td class="body-item mbr-fonts-style display-16">
+                            <a th:href="'/update-event/' + ${event.id}">update</a>
+                        </td>
+                        <td class="body-item mbr-fonts-style display-16">
+                            <a style="color: red;" th:href="'/delete-event/' + ${event.id}">delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="container table-info-container">
+                <div class="row info">
+                    <div class="col-md-8">
+                        <div class="dataTables_info mbr-fonts-style display-7">
+                            <span class="infoBefore">Prezentacja</span>
+                            <span class="inactive infoRows"></span>
+                            <span class="infoAfter">danych</span>
+                            <span class="infoFilteredBefore">odfiltrowanych</span>
+                            <span class="inactive infoRows"></span>
+                            <span class="infoFilteredAfter"> z całości</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-table">
+        <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
+            MORE EVENTS</h2>
+
+        <div class="table-wrapper">
+            <div class="container">
+                <div class="row search">
+                    <div class="col-md-16"></div>
+                    <div class="col-md-16">
+                        <div class="dataTables_filter">
+                            <label class="searchInfo mbr-fonts-style display-7">Wyszukaj:</label>
+                            <input class="form-control input-sm" disabled="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container scroll">
+                <a href="/">Back</a>
+                <table cellspacing="0" class="table isSearch">
+                    <thead>
+                    <tr class="table-heads ">
                         <th class="head-item mbr-fonts-style display-16">NAME</th>
                         <th class="head-item mbr-fonts-style display-16">START_DATE</th>
                         <th class="head-item mbr-fonts-style display-16">END_DATE</th>
                         <th class="head-item mbr-fonts-style display-16">FREE_SEATS</th>
                         <th class="head-item mbr-fonts-style display-16">ORGANIZER</th>
                         <th class="head-item mbr-fonts-style display-16">DESCRIPTION</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">COMMENTS</th>
                         <th class="head-item mbr-fonts-style display-16">COUNTRY</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">POSTAL_CODE</th>
                         <th class="head-item mbr-fonts-style display-16">CITY</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">STREET</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">NUMBER</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">CREATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">UPDATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">UPDATE</th>
-                        <th class="head-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')">DELETE</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="event : ${events}">
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.id}"></td>
+                    <tr th:each="event : ${moreEvents}">
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.name}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.startDate}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.endDate}"></td>
-                        <td class="body-item mbr-fonts-style display-16" th:text="${event.numberOfSeats.freeSeats}"></td>
+                        <td class="body-item mbr-fonts-style display-16"
+                            th:text="${event.numberOfSeats.freeSeats}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.organizer.name}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.description}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.comments}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.country}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.address.postalCode}"></td>
                         <td class="body-item mbr-fonts-style display-16" th:text="${event.address.city}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.address.street}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"
-                            th:text="${event.address.number}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')" th:text="${event.createdAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')" th:text="${event.updatedAt}"></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"><a th:href="'/update-event/' + ${event.id}">update</a></td>
-                        <td class="body-item mbr-fonts-style display-16" sec:authorize="hasRole('ADMIN')"><a style="color: red;" th:href="'/delete-event/' + ${event.id}">delete</a></td>
                     </tr>
                     </tbody>
                 </table>

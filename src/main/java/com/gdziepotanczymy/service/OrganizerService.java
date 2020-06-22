@@ -5,9 +5,12 @@ import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
 import com.gdziepotanczymy.model.Address;
 import com.gdziepotanczymy.model.Organizer;
+import com.gdziepotanczymy.repository.EventRepository;
 import com.gdziepotanczymy.repository.OrganizerRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateOrganizerDto;
+import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.OrganizerDto;
+import com.gdziepotanczymy.service.mapper.EventDtoMapper;
 import com.gdziepotanczymy.service.mapper.OrganizerDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
 public class OrganizerService {
     private final OrganizerRepository repository;
     private final OrganizerDtoMapper organizerDtoMapper;
+    private final EventDtoMapper eventDtoMapper;
+    private final EventRepository eventRepository;
 
     @Transactional
     public List<OrganizerDto> getAllOrganizers() {
@@ -38,6 +43,24 @@ public class OrganizerService {
                 .map(organizerDtoMapper::toDto)
                 .orElseThrow(NotFound::new);
     }
+
+    @Transactional
+    public List<EventDto> getAllOrganizerEvents(String login) {
+        Organizer organizer = repository.findByLogin(login);
+        return organizer.getEvents().stream()
+                .map(eventDtoMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<EventDto> getMoreEvents(String login) {
+        Organizer organizer = repository.findByLogin(login);
+        return eventRepository.findAllByOrganizerIsNot(organizer)
+                .stream()
+                .map(eventDtoMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     public OrganizerDto createOrganizer(CreateUpdateOrganizerDto createUpdateOrganizerDto) throws BadRequest, AlreadyExists {

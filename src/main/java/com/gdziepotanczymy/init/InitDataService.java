@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Service
@@ -81,7 +80,7 @@ public class InitDataService {
                 .description("desc")
                 .comments("comm")
                 .organizer(Organizer.builder()
-                        .name("org")
+                        .name("org2")
                         .login("org2")
                         .password("org2")
                         .phoneNumber("123")

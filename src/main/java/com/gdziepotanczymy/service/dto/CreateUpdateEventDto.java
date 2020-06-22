@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,17 +15,11 @@ import java.time.LocalDateTime;
 public class CreateUpdateEventDto {
     @NotBlank
     private String name;
-    @NotBlank
     private Integer startDay;
-    @NotBlank
     private Integer startMonth;
-    @NotBlank
     private Integer startYear;
-    @NotBlank
     private Integer endDay;
-    @NotBlank
     private Integer endMonth;
-    @NotBlank
     private Integer endYear;
     @NotBlank
     private String description;

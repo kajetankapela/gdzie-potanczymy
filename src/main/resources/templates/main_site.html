@@ -55,13 +55,20 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                <li class="nav-item" sec:authorize="isAnonymous()">
+                <li class="nav-item" sec:authorize="!hasAnyRole('PARTICIPANT', 'ORGANIZER')">
                     <a class="nav-link link text-white display-4" href="/all-events">
                         Events
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('PARTICIPANT')">
-                    <a class="nav-link link text-white display-4" th:href="'/all-participant-events/' + ${#authentication.getName()}">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-participant-events'">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ORGANIZER')">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-organizer-events'">
                         Events
                     </a>
                 </li>
@@ -92,7 +99,6 @@
 </section>
 
 <section class="cid-rRB7X1RrVu mbr-fullscreen mbr-parallax-background" id="header2-4">
-
 
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);"></div>
 

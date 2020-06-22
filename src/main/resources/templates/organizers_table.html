@@ -44,7 +44,8 @@
                 <span class="navbar-logo">
                     <a href="/">
 
-                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png" style="height: 3.8rem;">
+                         <img alt="Gdzie Potańczymy" src="assets/images/gdzie_potanczymy_logo_transparent.png"
+                              style="height: 3.8rem;">
                     </a>
                 </span>
                 <span class="navbar-caption-wrap">
@@ -54,10 +55,27 @@
                 </span>
             </div>
         </div>
-        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link link text-white display-4" href="/all-events">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('PARTICIPANT')">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-participant-events/'">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ORGANIZER')">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-organizer-events/'">
                         Events
                     </a>
                 </li>
@@ -71,7 +89,7 @@
                         Participants
                     </a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item">
                     <a class="nav-link link text-white display-4" href="/all-stars">
                         Stars
                     </a>
@@ -82,9 +100,7 @@
     </nav>
 </section>
 
-<section class="engine"><a href="https://mobirise.info/n">simple web templates</a></section>
 <section class="section-table cid-rSaOViXxOV mbr-parallax-background" id="table1-n">
-
 
     <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(255, 255, 255);">
     </div>
@@ -112,41 +128,52 @@
                 <table cellspacing="0" class="table isSearch">
                     <thead>
                     <tr class="table-heads ">
-                        <th class="head-item mbr-fonts-style display-14">ID</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">ID</th>
                         <th class="head-item mbr-fonts-style display-14">NAME</th>
                         <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">LOGIN</th>
-                        <th class="head-item mbr-fonts-style display-14">EMAIL</th>
-                        <th class="head-item mbr-fonts-style display-14">PHONE_NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">EMAIL</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">PHONE_NUMBER</th>
                         <th class="head-item mbr-fonts-style display-14">COUNTRY</th>
-                        <th class="head-item mbr-fonts-style display-14">POSTAL_CODE</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">POSTAL_CODE</th>
                         <th class="head-item mbr-fonts-style display-14">CITY</th>
-                        <th class="head-item mbr-fonts-style display-14">STREET</th>
-                        <th class="head-item mbr-fonts-style display-14">NUMBER</th>
-                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">CREATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">UPDATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">STREET</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">NUMBER</th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">CREATED_AT
+                        </th>
+                        <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">UPDATED_AT
+                        </th>
                         <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">UPDATE</th>
                         <th class="head-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')">DELETE</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="organizer : ${organizers}">
-                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.id}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.id}"></td>
                         <td class="body-item mbr-fonts-style display-14" th:text="${organizer.name}"></td>
-                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')" th:text="${organizer.login}"></td>
-                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.email}"></td>
-                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.phoneNumber}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.login}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.email}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.phoneNumber}"></td>
                         <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.country}"></td>
-                        <td class="body-item mbr-fonts-style display-14"
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
                             th:text="${organizer.addressDto.postalCode}"></td>
                         <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.city}"></td>
-                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.street}"></td>
-                        <td class="body-item mbr-fonts-style display-14" th:text="${organizer.addressDto.number}"></td>
-                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')" th:text="${organizer.createdAt}"></td>
-                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')" th:text="${organizer.updatedAt}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.addressDto.street}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.addressDto.number}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.createdAt}"></td>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"
+                            th:text="${organizer.updatedAt}"></td>
                         <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"><a
                                 th:href="'/update-organizer/' + ${organizer.id}">update</a></td>
-                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"><a style="color: red;"
-                                                                            th:href="'/delete-organizer/' + ${organizer.id}">delete</a>
+                        <td class="body-item mbr-fonts-style display-14" sec:authorize="hasRole('ADMIN')"><a
+                                style="color: red;"
+                                th:href="'/delete-organizer/' + ${organizer.id}">delete</a>
                         </td>
                     </tr>
                     </tbody>

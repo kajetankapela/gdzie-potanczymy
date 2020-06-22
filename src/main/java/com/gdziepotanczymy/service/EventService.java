@@ -41,14 +41,6 @@ public class EventService {
     }
 
     @Transactional
-    public List<EventDto> getEventsByOrganizerId(Long id) throws NotFound {
-        return eventRepository.findByOrganizerId(id)
-                .stream()
-                .map(eventDtoMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
     public EventDto createEvent(CreateUpdateEventDto createUpdateEventDto) throws BadRequest, NotFound {
 
         Address address = Address.builder()
@@ -144,12 +136,17 @@ public class EventService {
         participants.add(existingParticipant);
         existingEvent.setParticipants(participants);
 
-        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()-1);
-        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()+1);
-        existingEvent.setNumberOfSeats(existingNumberOfSeats);
-
         Event savedEvent = eventRepository.save(existingEvent);
 
+        return eventDtoMapper.toDto(savedEvent);
+    }
+
+    @Transactional
+    public EventDto signOutFromEvent(Long id, String login) throws NotFound {
+        Event existingEvent = eventRepository.findById(id).orElseThrow(NotFound::new);
+        existingEvent.getParticipants().removeIf(participant -> participant.getLogin().equals(login));
+
+        Event savedEvent = eventRepository.save(existingEvent);
         return eventDtoMapper.toDto(savedEvent);
     }
 }

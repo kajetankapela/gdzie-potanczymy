@@ -2,7 +2,6 @@ package com.gdziepotanczymy.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -25,13 +24,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable() // wyłączenie zabezpieczenia przed CSRF
                 .authorizeRequests() // autoryzuj wszystkie żądania
                 .antMatchers("/").permitAll()
-                .antMatchers("/all-events").permitAll()
+                .antMatchers("/assets/**").permitAll()
+                .antMatchers("/all-events").hasRole("ADMIN")
+                .antMatchers("/all-events").anonymous()
+                .antMatchers("/all-participant-events").hasRole("PARTICIPANT")
+                .antMatchers("/all-organizer-events").hasRole("ORGANIZER")
                 .antMatchers("/all-organizers").authenticated()
                 .antMatchers("/all-stars").authenticated()
                 .antMatchers("/all-participants").hasAnyRole("ADMIN", "ORGANIZER")
                 .antMatchers("/all-dance-types").hasAnyRole("ADMIN", "ORGANIZER")
                 .antMatchers("/new-participant").permitAll()
-
                 .antMatchers("/new-organizer").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -42,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity security){
+    public void configure(WebSecurity security) {
         security.ignoring().antMatchers("/assets/**");
     }
 

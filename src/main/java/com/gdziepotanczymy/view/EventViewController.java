@@ -2,13 +2,12 @@ package com.gdziepotanczymy.view;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
-import com.gdziepotanczymy.model.Participant;
 import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.EventService;
+import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.ParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
-import com.gdziepotanczymy.service.dto.ParticipantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,6 +27,7 @@ import java.util.List;
 public class EventViewController {
     private final EventService eventService;
     private final ParticipantService participantService;
+    private final OrganizerService organizerService;
     private final ParticipantRepository participantRepository;
 
     @GetMapping("/all-events")
@@ -41,25 +40,24 @@ public class EventViewController {
         return modelAndView;
     }
 
-    @GetMapping("/all-participant-events/{login}")
-    public ModelAndView displayParticipantEventsTable(@PathVariable String login) throws NotFound {
-        List<EventDto> events = eventService.getAllEvents();
-        ParticipantDto participant = participantService.getParticipantByLogin(login);
-
-        List<EventDto> myEvents = new ArrayList<>();
-        List<EventDto> moreEvents = new ArrayList<>();
-
-        for (EventDto event : events) {
-            if (participant.getEvents().contains(event)) {
-                myEvents.add(event);
-            } else {
-                moreEvents.add(event);
-            }
-        }
-        System.out.println(myEvents);
-        System.out.println(moreEvents);
+    @GetMapping("/all-participant-events")
+    public ModelAndView displayParticipantEventsTable(Authentication authentication) throws NotFound {
+        List<EventDto> myEvents = participantService.getAllParticipantEvents(authentication.getName());
+        List<EventDto> moreEvents = participantService.getMoreEvents(authentication.getName());
 
         ModelAndView modelAndView = new ModelAndView("participant_events_table");
+        modelAndView.addObject("myEvents", myEvents);
+        modelAndView.addObject("moreEvents", moreEvents);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/all-organizer-events")
+    public ModelAndView displayOrganizerEventsTable(Authentication authentication) throws NotFound {
+        List<EventDto> myEvents = organizerService.getAllOrganizerEvents(authentication.getName());
+        List<EventDto> moreEvents = organizerService.getMoreEvents(authentication.getName());
+
+        ModelAndView modelAndView = new ModelAndView("organizer_events_table");
         modelAndView.addObject("myEvents", myEvents);
         modelAndView.addObject("moreEvents", moreEvents);
 
@@ -71,19 +69,26 @@ public class EventViewController {
 
         eventService.deleteEventById(id);
 
-        return "redirect:/all-events";
+        return "redirect:/";
     }
 
-    @GetMapping("/sign-up/{id}/{login}")
-    public String signUpForEvent(@PathVariable Long id, @PathVariable String login) throws NotFound {
-        eventService.signUpForEvent(id, login);
+    @GetMapping("/sign-up/{id}")
+    public String signUpForEvent(@PathVariable Long id, Authentication authentication) throws NotFound {
+        eventService.signUpForEvent(id, authentication.getName());
 
+        return "redirect:/all-participant-events";
+    }
 
-        return "redirect:/all-participant-events/"+login;
+    @GetMapping("/sign-out/{id}")
+    public String signOutFromEvent(@PathVariable Long id, Authentication authentication) throws NotFound {
+        eventService.signOutFromEvent(id, authentication.getName());
+
+        return "redirect:/all-participant-events";
     }
 
     @GetMapping("/new-event")
     public ModelAndView displayCreateEventForm() {
+
         CreateUpdateEventDto createUpdateEventDto = new CreateUpdateEventDto();
 
         ModelAndView modelAndView = new ModelAndView("create_event_form");
@@ -96,9 +101,9 @@ public class EventViewController {
     @PostMapping("/new-event")
     public String createEvent(@ModelAttribute CreateUpdateEventDto createUpdateEventDto) throws BadRequest, NotFound {
         eventService.createEvent(createUpdateEventDto);
-
-        return "redirect:/all-events";
+        return "redirect:/";
     }
+
 
 
     @GetMapping("/update-event/{id}")
@@ -123,6 +128,6 @@ public class EventViewController {
         }
         eventService.updateEventById(id, createUpdateEventDto);
 
-        return "redirect:/all-events";
+        return "redirect:/";
     }
 }

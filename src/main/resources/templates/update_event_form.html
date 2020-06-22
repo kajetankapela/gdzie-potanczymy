@@ -118,22 +118,62 @@
                                    th:placeholder="${existingEvent.name}" type="text">
                         </div>
 
-                        <div class="col-md-4  form-group" data-for="date">
-                            <label class="form-control-label mbr-fonts-style display-7" for="date-form1-l">
-                                Start_Date
-                            </label>
-                            <input class="form-control display-7" id="date-form1-l" name="date" required="required"
-                                   th:field="*{startDate}"
-                                   th:placeholder="${existingEvent.startDate}" type="datetime-local">
+                        <div class="col-md-10">
+                            <p>Start Date (before: <span th:value="${existingEvent.getStartDate()}"></span>)</p>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form11-l">
+                                    day
+                                </label>
+                                <input class="form-control display-7" id="date-form11-l" max="31" min="1"
+                                       name="date" required="required"
+                                       th:field="*{startDay}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form12-l">
+                                    month
+                                </label>
+                                <input class="form-control display-7" id="date-form12-l" max="12" min="1"
+                                       name="date" required="required" th:field="*{startMonth}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form13-l">
+                                    year
+                                </label>
+                                <input class="form-control display-7" id="date-form13-l" max="2100" min="2020"
+                                       name="date" required="required" th:field="*{startYear}" type="number">
+                            </div>
                         </div>
 
-                        <div class="col-md-4  form-group" data-for="date">
-                            <label class="form-control-label mbr-fonts-style display-7" for="date-form2-l">
-                                Start_Date
-                            </label>
-                            <input class="form-control display-7" id="date-form2-l" name="date" required="required"
-                                   th:field="*{endDate}"
-                                   th:placeholder="${existingEvent.endDate}" type="datetime-local">
+                        <div class="col-md-10">
+
+                            <p>End Date (before: <span th:value="${existingEvent.getEndDate()}"></span>)</p>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form31-l">
+                                    day
+                                </label>
+                                <input class="form-control display-7" id="date-form31-l" max="31" min="1"
+                                       name="date" required="required" th:field="*{endDay}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form32-l">
+                                    month
+                                </label>
+                                <input class="form-control display-7" id="date-form32-l" max="12" min="1"
+                                       name="date" required="required" th:field="*{endMonth}" type="number">
+                            </div>
+
+                            <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
+                                <label class="form-control-label mbr-fonts-style display-7" for="date-form33-l">
+                                    year
+                                </label>
+                                <input class="form-control display-7" id="date-form33-l" max="2100" min="2020"
+                                       name="date" required="required" th:field="*{endYear}" type="number">
+                            </div>
                         </div>
 
                         <div class="col-md-12 form-group" data-for="message">
@@ -154,6 +194,14 @@
                                       th:field="*{comments}" th:placeholder="${existingEvent.comments}"
                                       type="text"></textarea>
                         </div>
+
+<!--                        ORGANIZER-->
+
+                        <div style="">
+                            <input th:id="organizerLogin" th:name="organizerLogin" th:value="${#authentication.getName()}" type="hidden">
+                        </div>
+
+                        <!--                        ORGANIZER-->
 
                         <div class="col-md-12 form-group">Address:</div>
 
@@ -206,6 +254,8 @@
                                    th:field="*{createUpdateAddressDto.number}"
                                    th:placeholder="${existingEvent.address.number}" type="text">
                         </div>
+
+
 
 
                         <div class="col-md-12 form-group">Number_Of_Seats:</div>
