@@ -2,10 +2,15 @@ package com.gdziepotanczymy.view;
 
 import com.gdziepotanczymy.controller.exception.BadRequest;
 import com.gdziepotanczymy.controller.exception.NotFound;
+import com.gdziepotanczymy.model.Participant;
+import com.gdziepotanczymy.service.EventService;
+import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.ParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
+import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.ParticipantDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class ParticipantViewController {
     private final ParticipantService participantService;
+    private final OrganizerService organizerService;
+    private final EventService eventService;
 
     @GetMapping("/all-participants")
     public ModelAndView displayParticipantsTable() {
@@ -32,9 +40,20 @@ public class ParticipantViewController {
         return modelAndView;
     }
 
+    @GetMapping("/event-participants-table")
+    public ModelAndView displayEventParticipantsTable(Authentication authentication) throws NotFound {
+        Map<String, List<Participant>> participantsOfOrganizerEvents =
+                organizerService.getAllParticipantsOfOrganizerEvents(authentication.getName());
+
+        ModelAndView modelAndView = new ModelAndView("event_participants_table");
+        modelAndView.addObject("participantsOfOrganizerEvents", participantsOfOrganizerEvents);
+
+        return modelAndView;
+    }
+
     @GetMapping("/delete-participant/{id}")
     public String deleteParticipant(@PathVariable Long id) throws NotFound {
-
+        
         participantService.deleteParticipantById(id);
 
         return "redirect:/all-participants";

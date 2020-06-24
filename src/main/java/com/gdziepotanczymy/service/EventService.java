@@ -8,7 +8,9 @@ import com.gdziepotanczymy.repository.OrganizerRepository;
 import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
+import com.gdziepotanczymy.service.dto.ParticipantDto;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
+import com.gdziepotanczymy.service.mapper.ParticipantDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class EventService {
     private final EventDtoMapper eventDtoMapper;
     private final OrganizerRepository organizerRepository;
     private final ParticipantRepository participantRepository;
+    private final ParticipantDtoMapper participantDtoMapper;
 
     @Transactional
     public List<EventDto> getAllEvents() {

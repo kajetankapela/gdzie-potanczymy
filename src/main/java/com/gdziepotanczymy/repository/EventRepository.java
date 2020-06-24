@@ -14,4 +14,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByParticipantsNotContains(Participant participant);
 
     List<Event> findAllByOrganizerIsNot(Organizer organizer);
+
+    List<Event> findAllByOrganizer(Organizer organizer);
 }
