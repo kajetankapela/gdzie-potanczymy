@@ -8,7 +8,7 @@
     <link href="/assets/images/gdzie_potanczymy_logo_transparent.png" rel="shortcut icon" type="image/x-icon">
     <meta content="" name="description">
 
-    <title>Dance_Types</title>
+    <title>Dance Types</title>
     <link href="/assets/web/assets/mobirise-icons/mobirise-icons.css" rel="stylesheet">
     <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@
                 </span>
                 <span class="navbar-caption-wrap">
                     <a class="navbar-caption text-white display-4" href="/">
-                        GDZIE POTAŃCZYMY
+                        SHALL WE DANCE?
                     </a>
                 </span>
             </div>
@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ORGANIZER')">
                     <a class="nav-link link text-white display-4"
-                       th:href="'/all-organizer-events/' + ${#authentication.getName()}">
+                       th:href="'/all-organizer-events'">
                         Events
                     </a>
                 </li>
@@ -100,7 +100,7 @@
     </div>
     <div class="container container-table">
         <h2 class="mbr-section-title mbr-fonts-style align-center pb-3 display-2">
-            DANCE_TYPES</h2>
+            DANCE TYPES</h2>
 
         <div class="table-wrapper">
             <div class="container">
@@ -108,7 +108,7 @@
                     <div class="col-md-8"></div>
                     <div class="col-md-8">
                         <div class="dataTables_filter">
-                            <label class="searchInfo mbr-fonts-style display-7">Wyszukaj:</label>
+                            <label class="searchInfo mbr-fonts-style display-7">Search:</label>
                             <input class="form-control input-sm" disabled="">
                         </div>
                     </div>
@@ -126,8 +126,8 @@
                         <th class="head-item mbr-fonts-style display-8">NAME</th>
                         <th class="head-item mbr-fonts-style display-8">DESCRIPTION</th>
                         <th class="head-item mbr-fonts-style display-8">COMMENTS</th>
-                        <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">CREATED_AT</th>
-                        <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">UPDATED_AT</th>
+                        <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">CREATED AT</th>
+                        <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">UPDATED AT</th>
                         <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">UPDATE</th>
                         <th class="head-item mbr-fonts-style display-8" sec:authorize="hasRole('ADMIN')">DELETE</th>
                     </tr>
@@ -157,12 +157,12 @@
                 <div class="row info">
                     <div class="col-md-8">
                         <div class="dataTables_info mbr-fonts-style display-7">
-                            <span class="infoBefore">Prezentacja</span>
+                            <span class="infoBefore"></span>
                             <span class="inactive infoRows"></span>
-                            <span class="infoAfter">danych</span>
-                            <span class="infoFilteredBefore">odfiltrowanych</span>
+                            <span class="infoAfter">records</span>
+                            <span class="infoFilteredBefore"></span>
                             <span class="inactive infoRows"></span>
-                            <span class="infoFilteredAfter"> z całości</span>
+                            <span class="infoFilteredAfter"></span>
                         </div>
                     </div>
                     <div class="col-md-8"></div>

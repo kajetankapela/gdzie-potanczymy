@@ -48,7 +48,7 @@
                 </span>
                 <span class="navbar-caption-wrap">
                     <a class="navbar-caption text-white display-4" href="/">
-                        GDZIE POTAŃCZYMY
+                        SHALL WE DANCE?
                     </a>
                 </span>
             </div>
@@ -56,7 +56,18 @@
         <div  class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/">
+                        Home
+                    </a>
+                </li>
+                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link link text-white display-4" href="/all-events">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ORGANIZER')">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-organizer-events'">
                         Events
                     </a>
                 </li>

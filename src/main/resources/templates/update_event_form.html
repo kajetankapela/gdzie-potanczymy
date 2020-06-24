@@ -49,7 +49,7 @@
                 </span>
                 <span class="navbar-caption-wrap">
                     <a class="navbar-caption text-white display-4" href="/">
-                        GDZIE POTAŃCZYMY
+                        SHALL WE DANCE?
                     </a>
                 </span>
             </div>
@@ -57,7 +57,18 @@
         <div  class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link link text-white display-4" href="/all-events">
+                        Events
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ORGANIZER')">
+                    <a class="nav-link link text-white display-4"
+                       th:href="'/all-organizer-events'">
                         Events
                     </a>
                 </li>
@@ -123,7 +134,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form11-l">
-                                    day
+                                    Day
                                 </label>
                                 <input class="form-control display-7" id="date-form11-l" max="31" min="1"
                                        name="date" required="required"
@@ -132,7 +143,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form12-l">
-                                    month
+                                    Month
                                 </label>
                                 <input class="form-control display-7" id="date-form12-l" max="12" min="1"
                                        name="date" required="required" th:field="*{startMonth}" type="number">
@@ -140,7 +151,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form13-l">
-                                    year
+                                    Year
                                 </label>
                                 <input class="form-control display-7" id="date-form13-l" max="2100" min="2020"
                                        name="date" required="required" th:field="*{startYear}" type="number">
@@ -153,7 +164,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form31-l">
-                                    day
+                                    Day
                                 </label>
                                 <input class="form-control display-7" id="date-form31-l" max="31" min="1"
                                        name="date" required="required" th:field="*{endDay}" type="number">
@@ -161,7 +172,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form32-l">
-                                    month
+                                    Month
                                 </label>
                                 <input class="form-control display-7" id="date-form32-l" max="12" min="1"
                                        name="date" required="required" th:field="*{endMonth}" type="number">
@@ -169,7 +180,7 @@
 
                             <div class="col-md-2  form-group" data-for="date" style="display: inline-block">
                                 <label class="form-control-label mbr-fonts-style display-7" for="date-form33-l">
-                                    year
+                                    Year
                                 </label>
                                 <input class="form-control display-7" id="date-form33-l" max="2100" min="2020"
                                        name="date" required="required" th:field="*{endYear}" type="number">
@@ -217,7 +228,7 @@
 
                         <div class="col-md-6  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="address-form2-l">
-                                Postal_Code
+                                Postal Code
                             </label>
                             <input class="form-control display-7"
                                    id="address-form2-l" name="name" required="required"
@@ -258,11 +269,11 @@
 
 
 
-                        <div class="col-md-12 form-group">Number_Of_Seats:</div>
+                        <div class="col-md-12 form-group">Number Of Seats:</div>
 
                         <div class="col-md-3  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="nos-form1-l">
-                                All_Seats
+                                All Seats
                             </label>
                             <input class="form-control display-7"
                                    id="nos-form1-l" name="name" required="required"
@@ -272,7 +283,7 @@
 
                         <div class="col-md-3  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="nos-form2-l">
-                                Free_Seats
+                                Free Seats
                             </label>
                             <input class="form-control display-7"
                                    id="nos-form2-l" name="name" required="required"
@@ -282,7 +293,7 @@
 
                         <div class="col-md-3  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="nos-form3-l">
-                                Unconfirmed_Seats
+                                Unconfirmed Seats
                             </label>
                             <input class="form-control display-7"
                                    id="nos-form3-l" name="name"
@@ -292,7 +303,7 @@
 
                         <div class="col-md-3  form-group" data-for="name">
                             <label class="form-control-label mbr-fonts-style display-7" for="nos-form4-l">
-                                Confirmed_Seats
+                                Confirmed Seats
                             </label>
                             <input class="form-control display-7"
                                    id="nos-form4-l" name="name" required="required"
