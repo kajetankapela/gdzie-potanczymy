@@ -208,15 +208,14 @@
                         </div>
 
 
-
-<!--                        ORGANIZER-->
+                        <!--                        ORGANIZER-->
 
                         <div style="">
-                            <input th:id="organizerLogin" th:name="organizerLogin" th:value="${#authentication.getName()}" type="hidden">
+                            <input th:id="organizerLogin" th:name="organizerLogin"
+                                   th:value="${#authentication.getName()}" type="hidden">
                         </div>
 
-<!--                        ORGANIZER-->
-
+                        <!--                        ORGANIZER-->
 
 
                         <div class="col-md-12 form-group">Address:</div>
@@ -265,8 +264,6 @@
                                    required="required"
                                    th:field="*{createUpdateAddressDto.number}" type="text">
                         </div>
-
-
 
 
                         <div class="col-md-12 form-group">Number Of Seats:</div>

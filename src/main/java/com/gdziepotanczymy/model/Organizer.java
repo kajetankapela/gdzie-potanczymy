@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 public class Organizer extends User {
-
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Event> events = new ArrayList<>();

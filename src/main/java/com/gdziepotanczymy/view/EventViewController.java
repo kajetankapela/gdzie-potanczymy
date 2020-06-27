@@ -105,7 +105,6 @@ public class EventViewController {
     }
 
 
-
     @GetMapping("/update-event/{id}")
     public ModelAndView displayUpdateEventForm(@PathVariable Long id) throws NotFound {
         CreateUpdateEventDto createUpdateEventDto = new CreateUpdateEventDto();

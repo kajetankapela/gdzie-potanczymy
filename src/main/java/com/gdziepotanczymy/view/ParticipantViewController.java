@@ -7,7 +7,6 @@ import com.gdziepotanczymy.service.EventService;
 import com.gdziepotanczymy.service.OrganizerService;
 import com.gdziepotanczymy.service.ParticipantService;
 import com.gdziepotanczymy.service.dto.CreateUpdateParticipantDto;
-import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.ParticipantDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -53,7 +52,7 @@ public class ParticipantViewController {
 
     @GetMapping("/delete-participant/{id}")
     public String deleteParticipant(@PathVariable Long id) throws NotFound {
-        
+
         participantService.deleteParticipantById(id);
 
         return "redirect:/all-participants";

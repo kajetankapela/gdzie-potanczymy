@@ -3,7 +3,6 @@ package com.gdziepotanczymy.config;
 import com.gdziepotanczymy.model.User;
 import com.gdziepotanczymy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +21,7 @@ public class UserDetailsAdapter implements UserDetailsService {
         }
         return org.springframework.security.core.userdetails.User.builder()
                 .username(userByLogin.getLogin())
-                .password("{noop}"+userByLogin.getPassword())
+                .password("{noop}" + userByLogin.getPassword())
                 .roles(userByLogin.getRole())
                 .build();
     }

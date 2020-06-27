@@ -12,7 +12,6 @@ import com.gdziepotanczymy.repository.OrganizerRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateOrganizerDto;
 import com.gdziepotanczymy.service.dto.EventDto;
 import com.gdziepotanczymy.service.dto.OrganizerDto;
-import com.gdziepotanczymy.service.dto.ParticipantDto;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
 import com.gdziepotanczymy.service.mapper.OrganizerDtoMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

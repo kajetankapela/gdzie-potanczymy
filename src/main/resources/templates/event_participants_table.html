@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -89,7 +89,8 @@
     </nav>
 </section>
 
-<th:block th:each="eventParticipant:${participantsOfOrganizerEvents}" th:if="${!participantsOfOrganizerEvents.isEmpty()}">
+<th:block th:each="eventParticipant:${participantsOfOrganizerEvents}"
+          th:if="${!participantsOfOrganizerEvents.isEmpty()}">
     <section class="section-table cid-rSaOViXxOV mbr-parallax-background">
 
         <div class="mbr-overlay" style="opacity: 0.9; background-color: rgb(255, 255, 255);">
@@ -131,7 +132,8 @@
                             <td class="body-item mbr-fonts-style display-16" th:text="${participant.gender}"></td>
                             <td class="body-item mbr-fonts-style display-16" th:text="${participant.email}"></td>
                             <td class="body-item mbr-fonts-style display-16" th:text="${participant.phoneNumber}"></td>
-                            <td class="body-item mbr-fonts-style display-16" th:text="${participant.address.country}"></td>
+                            <td class="body-item mbr-fonts-style display-16"
+                                th:text="${participant.address.country}"></td>
                         </tr>
                         </tbody>
                     </table>

@@ -8,7 +8,6 @@ import com.gdziepotanczymy.repository.OrganizerRepository;
 import com.gdziepotanczymy.repository.ParticipantRepository;
 import com.gdziepotanczymy.service.dto.CreateUpdateEventDto;
 import com.gdziepotanczymy.service.dto.EventDto;
-import com.gdziepotanczymy.service.dto.ParticipantDto;
 import com.gdziepotanczymy.service.mapper.EventDtoMapper;
 import com.gdziepotanczymy.service.mapper.ParticipantDtoMapper;
 import lombok.RequiredArgsConstructor;
@@ -83,7 +82,6 @@ public class EventService {
     }
 
 
-
     @Transactional
     public EventDto updateEventById(Long id, CreateUpdateEventDto createUpdateEventDto) throws NotFound, BadRequest {
 
@@ -139,8 +137,8 @@ public class EventService {
         participants.add(existingParticipant);
         existingEvent.setParticipants(participants);
 
-        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()-1);
-        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()+1);
+        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats() - 1);
+        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats() + 1);
         existingEvent.setNumberOfSeats(existingNumberOfSeats);
 
         Event savedEvent = eventRepository.save(existingEvent);
@@ -154,8 +152,8 @@ public class EventService {
         existingEvent.getParticipants().removeIf(participant -> participant.getLogin().equals(login));
         NumberOfSeats existingNumberOfSeats = existingEvent.getNumberOfSeats();
 
-        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats()+1);
-        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats()-1);
+        existingNumberOfSeats.setFreeSeats(existingNumberOfSeats.getFreeSeats() + 1);
+        existingNumberOfSeats.setUnconfirmedSeats(existingNumberOfSeats.getUnconfirmedSeats() - 1);
         existingEvent.setNumberOfSeats(existingNumberOfSeats);
 
         Event savedEvent = eventRepository.save(existingEvent);
